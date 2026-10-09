@@ -1,0 +1,18 @@
+{
+  "name": "novyi-dom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Новый дом: выбор квартиры в новостройке (2D + 3D)",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/",
+    "seed": "node scripts/seed.js"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
+    "express": "^5.3.0",
+    "three": "^0.186.1"
+  }
+}
