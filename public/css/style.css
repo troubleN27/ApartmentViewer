@@ -205,6 +205,16 @@ svg { width: 20px; height: 20px; flex: none; }
 .photo::after { content: ''; position: absolute; inset: 0; background: rgba(17, 18, 20, .16); pointer-events: none; transition: opacity var(--ease); }
 .photo:hover::after { opacity: 0; }
 .photo figcaption { z-index: 1; }
+/* Пустая заглушка, если фотография не загрузилась. */
+.photo.is-empty { border: 1px solid var(--line); box-shadow: none; }
+.photo.is-empty::after { background: none; }
+.photo.is-empty::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: center / 40px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234A4C55' stroke-width='1'%3E%3Crect x='3' y='5' width='18' height='14' rx='1.5'/%3E%3Ccircle cx='8.5' cy='10' r='1.5'/%3E%3Cpath d='M4 17l5-4.5 3.5 3 3-2.5L20 17'/%3E%3C/svg%3E");
+}
+.photo.is-empty figcaption { background: none; color: var(--muted); }
 .photo figcaption {
   position: absolute;
   left: 0;

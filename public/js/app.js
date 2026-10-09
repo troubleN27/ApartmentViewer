@@ -510,16 +510,15 @@ document.addEventListener('click', (e) => {
 /* ---------- Изображения ---------- */
 
 // Мок-фотографии грузятся с внешнего адреса. Если он недоступен (нет интернета),
-// подставляется локальный рендер из public/img.
-function useFallback(img) {
-  const fallback = img.dataset?.fallback;
-  if (!fallback) return;
-  delete img.dataset.fallback;
-  img.src = fallback;
+// картинка убирается и на её месте остаётся пустая заглушка.
+function showPlaceholder(img) {
+  if (!img.matches?.('img[data-photo]')) return;
+  img.hidden = true;
+  img.closest('.photo')?.classList.add('is-empty');
 }
-document.addEventListener('error', (e) => e.target.tagName === 'IMG' && useFallback(e.target), true);
-document.querySelectorAll('img[data-fallback]').forEach((img) => {
-  if (img.complete && img.naturalWidth === 0) useFallback(img); // ошибка случилась до загрузки скрипта
+document.addEventListener('error', (e) => showPlaceholder(e.target), true);
+document.querySelectorAll('img[data-photo]').forEach((img) => {
+  if (img.complete && img.naturalWidth === 0) showPlaceholder(img); // ошибка случилась до загрузки скрипта
 });
 
 /* ---------- Запуск ---------- */
