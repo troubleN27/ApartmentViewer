@@ -5,14 +5,20 @@
   "description": "Новый дом: выбор квартиры в новостройке (2D + 3D)",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
+    "start": "node --env-file-if-exists=.env server.js",
+    "build": "node scripts/build.js",
     "test": "node --test \"tests/*.test.js\"",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "db:seed": "node --env-file-if-exists=.env scripts/db-seed.js"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.3.0",
     "@fontsource/manrope": "^5.3.0",
+    "@neondatabase/serverless": "^1.2.0",
     "express": "^5.3.0",
     "three": "^0.186.1"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

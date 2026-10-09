@@ -2,7 +2,7 @@
 
 Сайт застройщика жилого комплекса. Покупатель выбирает квартиру на шахматке дома, смотрит планировку сверху с размерами и площадями, заходит внутрь в 3D и гуляет по квартире на высоте своих глаз, а затем оставляет заявку на просмотр.
 
-Стек: Node.js + Express, чистые HTML/CSS/JS (ES-модули, без сборщиков), Canvas 2D, Three.js. Данные лежат в JSON-файлах, состояние пользователя — в `localStorage`.
+Стек: Node.js + Express, чистые HTML/CSS/JS (ES-модули, без сборщиков), Canvas 2D, Three.js. Данные — в базе Neon (PostgreSQL) на Vercel или в JSON-файлах при локальном запуске; состояние пользователя — в `localStorage`.
 
 ## Запуск
 
@@ -19,6 +19,28 @@ npm test
 ```
 
 `npm run seed -- 123` генерирует другой вариант дома. Порт меняется переменной `PORT`.
+
+## Деплой на Vercel + Neon
+
+Проект готов к Vercel: статику из `public/` раздаёт CDN, запросы `/api/*` обрабатывает одна серверная функция (`api/index.js`), квартиры и заявки лежат в базе Neon.
+
+1. **База.** Создайте проект на [neon.tech](https://neon.tech) и скопируйте строку подключения (Connection string, вариант *Pooled*).
+2. **Таблицы и квартиры.** В корне проекта скопируйте `.env.example` в `.env`, вставьте строку в `DATABASE_URL` и выполните:
+
+   ```bash
+   npm run db:seed
+   ```
+
+   Скрипт создаст таблицы `apartments` и `leads` и загрузит 54 квартиры из `data/apartments.json`. Повторный запуск обновляет квартиры и не трогает заявки.
+3. **Vercel.** На [vercel.com](https://vercel.com) нажмите *Add New → Project* и импортируйте репозиторий с GitHub. Настройки сборки менять не нужно — они заданы в `vercel.json`.
+4. **Переменная окружения.** В проекте Vercel откройте *Settings → Environment Variables* и добавьте `DATABASE_URL` с той же строкой подключения (для Production и Preview). Вместо этого можно подключить Neon через *Storage → Connect Database* — тогда Vercel создаст переменную сам.
+5. **Deploy.** После деплоя откройте сайт: шахматка должна показать квартиры, а заявка — сохраниться в таблице `leads`.
+
+Каждый `git push` в `master` запускает новый деплой.
+
+Заявки смотрите в Neon: *SQL Editor* → `SELECT * FROM leads ORDER BY created_at DESC;`
+
+Локально база не обязательна: без `DATABASE_URL` сервер читает `data/apartments.json` и пишет заявки в `data/leads.json`. Если `.env` с `DATABASE_URL` есть, `npm start` тоже работает с Neon.
 
 ## Как пользоваться
 
@@ -73,6 +95,11 @@ npm test
 
 ```
 server.js              Express: статика, /vendor (three, шрифты), API
+api/index.js           точка входа для Vercel — то же Express-приложение
+lib/store.js           хранилище: Neon (PostgreSQL) или JSON-файлы
+vercel.json            настройки сборки и маршрутов Vercel
+scripts/build.js       сборка для Vercel: three и шрифты → public/vendor
+scripts/db-seed.js     таблицы и квартиры в базе Neon
 scripts/seed.js        генерация data/apartments.json
 data/                  apartments.json, leads.json
 public/js/model.js     геометрия, валидация, коллизии (чистые функции)

@@ -1,30 +1,22 @@
 import express from 'express';
-import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { planArea, calcPrice } from './public/js/model.js';
+import { createStore, createFileStore } from './lib/store.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const modules = path.join(__dirname, 'node_modules');
 const PHONE_RE = /^\+998\d{9}$/;
 
-async function readJson(file, fallback) {
-  try {
-    return JSON.parse(await fs.readFile(file, 'utf8'));
-  } catch (err) {
-    if (err.code === 'ENOENT' && fallback !== undefined) return fallback;
-    throw err;
-  }
-}
-
-export function createApp({ dataDir = path.join(__dirname, 'data') } = {}) {
+// dataDir задаёт файловое хранилище явно (так делают тесты).
+// Без него: база Neon, если есть DATABASE_URL, иначе файлы в data/.
+export function createApp({ dataDir, store = dataDir ? createFileStore(dataDir) : createStore({ dataDir: path.join(__dirname, 'data') }) } = {}) {
   const app = express();
-  const apartmentsFile = path.join(dataDir, 'apartments.json');
-  const leadsFile = path.join(dataDir, 'leads.json');
-  let writeQueue = Promise.resolve();
 
   app.use(express.json({ limit: '10kb' }));
 
+  // Локально three и шрифты раздаются прямо из node_modules.
+  // На Vercel их копирует в public/vendor сборка (scripts/build.js), а статику отдаёт CDN.
   app.use('/vendor/three', express.static(path.join(modules, 'three')));
   app.use('/vendor/fonts/manrope', express.static(path.join(modules, '@fontsource', 'manrope')));
   app.use('/vendor/fonts/cormorant', express.static(path.join(modules, '@fontsource', 'cormorant-garamond')));
@@ -33,7 +25,7 @@ export function createApp({ dataDir = path.join(__dirname, 'data') } = {}) {
   // Список без планов; площадь и цена вычисляются.
   app.get('/api/apartments', async (req, res, next) => {
     try {
-      const apartments = await readJson(apartmentsFile, []);
+      const apartments = await store.listApartments();
       res.json(
         apartments.map(({ id, floor, number, rooms, pricePerM2, status, plan }) => {
           const area = planArea(plan);
@@ -47,7 +39,7 @@ export function createApp({ dataDir = path.join(__dirname, 'data') } = {}) {
 
   app.get('/api/apartments/:id', async (req, res, next) => {
     try {
-      const apartment = (await readJson(apartmentsFile, [])).find((a) => a.id === req.params.id);
+      const apartment = await store.getApartment(req.params.id);
       if (!apartment) return res.status(404).json({ error: 'Квартира не найдена', code: 'apartment' });
       res.json(apartment);
     } catch (err) {
@@ -64,28 +56,11 @@ export function createApp({ dataDir = path.join(__dirname, 'data') } = {}) {
 
       if (name.length < 2 || name.length > 60) return fail('name', 'Имя должно быть от 2 до 60 символов');
       if (!PHONE_RE.test(phone)) return fail('phone', 'Телефон должен быть в формате +998XXXXXXXXX');
-      const apartment = (await readJson(apartmentsFile, [])).find((a) => a.id === body.apartmentId);
+      const apartment = typeof body.apartmentId === 'string' ? await store.getApartment(body.apartmentId) : null;
       if (!apartment) return fail('apartment', 'Квартира не найдена');
       if (apartment.status === 'sold') return fail('sold', 'Квартира уже продана');
 
-      const lead = {
-        id: `L-${Date.now()}`,
-        apartmentId: apartment.id,
-        name,
-        phone,
-        createdAt: new Date().toISOString(),
-      };
-      // Запись атомарная: временный файл, затем rename. Записи идут по очереди.
-      const write = writeQueue.then(async () => {
-        const leads = await readJson(leadsFile, []);
-        leads.push(lead);
-        const tmp = `${leadsFile}.${process.pid}.tmp`;
-        await fs.writeFile(tmp, JSON.stringify(leads, null, 2) + '\n');
-        await fs.rename(tmp, leadsFile);
-      });
-      writeQueue = write.catch(() => {});
-      await write;
-      res.status(201).json(lead);
+      res.status(201).json(await store.addLead({ apartmentId: apartment.id, name, phone }));
     } catch (err) {
       next(err);
     }

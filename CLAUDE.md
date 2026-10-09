@@ -9,18 +9,25 @@
 
 ## Стек
 - Node.js + Express. Сервер только раздаёт статику и обслуживает 3 API-маршрута.
+- Продакшен — **Vercel + Neon**: статику из `public/` раздаёт CDN Vercel, `/api/*` обрабатывает одна функция `api/index.js` (то же Express-приложение), данные лежат в PostgreSQL на Neon.
 - Чистый HTML, CSS и JS (ES-модули), без фреймворков и сборщиков. В `package.json` стоит `"type": "module"`: сервер, seed-скрипт и тесты импортируют `public/js/model.js` и `generator.js` напрямую.
 - 2D рисуется на Canvas 2D API.
 - 3D делается на Three.js. Это единственная внешняя библиотека на фронте: ставится через npm и раздаётся из `node_modules` по адресу `/vendor/three`, подключается через importmap.
-- Никаких баз данных, внешних сервисов и авторизации. Единственное исключение — мок-фотографии на главной: они подключены ссылками на `images.unsplash.com` (решение заказчика). Данные хранятся в JSON-файлах, состояние пользователя — в localStorage.
+- Авторизации нет. Внешние сервисы — только Neon (база) и Vercel (хостинг). Единственное исключение — мок-фотографии на главной: они подключены ссылками на `images.unsplash.com` (решение заказчика). Квартиры и заявки хранятся в базе Neon, когда задан `DATABASE_URL`, иначе — в JSON-файлах `data/` (локальная разработка и тесты). Состояние пользователя — в localStorage.
 
 ## Структура
 ```
 server.js                 Express: статика + API
+api/index.js              точка входа Vercel: экспортирует createApp()
+lib/store.js              хранилище: createNeonStore / createFileStore, схема базы
+vercel.json               сборка (npm run build), outputDirectory public, /api/* → функция
+.env.example              образец DATABASE_URL
 package.json              скрипты start, test, seed
 data/apartments.json      каталог квартир дома
 data/leads.json           заявки на просмотр
 scripts/seed.js           генерирует apartments.json (весь дом)
+scripts/build.js          для Vercel: копирует three и шрифты из node_modules в public/vendor
+scripts/db-seed.js        создаёт таблицы в Neon и загружает квартиры из apartments.json
 public/index.html
 public/css/style.css
 public/js/
@@ -42,6 +49,7 @@ tests/model.test.js       тесты геометрии на node:test
 tests/generator.test.js   генератор: 50 seed-ов валидны и связны
 tests/furniture.test.js   каталог, правила расстановки, случайная обстановка на 40 квартирах
 tests/api.test.js         маршруты API на временном каталоге данных
+tests/store.test.js       хранилище Neon на заглушке драйвера, API поверх него
 ```
 
 ## Единицы и координаты
@@ -147,12 +155,22 @@ tests/api.test.js         маршруты API на временном ката�
 ## Тестовые данные
 - `generator.js`: `randomApartment(seed)` с seeded PRNG (mulberry32), поэтому результат воспроизводим. Генерация идёт через рекурсивное деление прямоугольника на комнаты по целевым площадям (гостиная 17–23 м², спальня 12–16, кухня 9–13, прихожая 5–8, санузел 3,6–5,2 — он всегда самая маленькая комната и стоит рядом с прихожей) с расстановкой дверей и окон. На один seed сравнивается несколько разбиений, берётся то, где из прихожей открывается больше комнат. Возвращается только план, прошедший `validatePlan`, иначе пробуется следующий seed.
 - Dev-панель (`?dev=1`): кнопка «Случайная квартира», поле seed, кнопка «Сбросить localStorage».
-- `npm run seed` перезаписывает `data/apartments.json`: дом из 9 этажей по 6 квартир, случайные статусы и цены. У каждой квартиры своя планировка и комнатность (1–3), цена за м² растёт с этажом. `npm run seed -- 123` — другой seed дома.
+- `npm run seed
+npm run build    # public/vendor для Vercel
+npm run db:seed  # таблицы и квартиры в Neon (нужен DATABASE_URL в .env)` перезаписывает `data/apartments.json`: дом из 9 этажей по 6 квартир, случайные статусы и цены. У каждой квартиры своя планировка и комнатность (1–3), цена за м² растёт с этажом. `npm run seed -- 123` — другой seed дома.
+
+## Хранилище и деплой
+- `lib/store.js` даёт один интерфейс — `listApartments()`, `getApartment(id)`, `addLead({ apartmentId, name, phone })` — и две реализации. `createStore()` выбирает Neon, если есть `DATABASE_URL` (или `POSTGRES_URL`), иначе файлы. `createApp({ dataDir })` всегда берёт файлы — так работают тесты.
+- Таблицы: `apartments (id, floor, number, rooms, price_per_m2, status, plan jsonb)` и `leads (id, apartment_id → apartments, name, phone, created_at)`. Схема — константа `SCHEMA` в `lib/store.js`, применяется скриптом `npm run db:seed`.
+- Все значения в SQL передаются параметрами (tagged template драйвера), строки запросов не склеиваются.
+- На Vercel файловая система только для чтения: ничего не писать на диск в обработчиках.
+- `/vendor/three` и `/vendor/fonts`: локально Express раздаёт их из `node_modules`, на Vercel те же адреса обслуживает `public/vendor`, который создаёт `npm run build` (папка в `.gitignore`). Новый файл из `node_modules`, нужный фронту, надо добавить в `scripts/build.js`.
+- Секреты — только в `.env` (в `.gitignore`) и в переменных окружения Vercel.
 
 ## API
 - `GET /api/apartments` — список без планов (id, floor, number, rooms, area, price, status).
 - `GET /api/apartments/:id` — квартира целиком, при отсутствии — 404.
-- `POST /api/leads` — проверка: имя 2–60 символов, телефон `^\+998\d{9}$`, квартира существует и не `sold`. Ответ 201 с заявкой или 400 с `{ error, code }`, где `code` — `name` | `phone` | `apartment` | `sold` (по нему фронт берёт перевод). Запись атомарная: временный файл, затем rename.
+- `POST /api/leads` — проверка: имя 2–60 символов, телефон `^\+998\d{9}$`, квартира существует и не `sold`. Ответ 201 с заявкой или 400 с `{ error, code }`, где `code` — `name` | `phone` | `apartment` | `sold` (по нему фронт берёт перевод). В файловом хранилище запись атомарная: временный файл, затем rename; в базе — один `INSERT`.
 
 ## Команды
 ```
@@ -186,7 +204,7 @@ npm run seed
 ## Правила работы для Claude
 - Работать по шагам: каркас → model.js и тесты → данные и API → шахматка → 2D-план → 3D-облёт → прогулка → заявки, язык, хранилище → dev-панель и проверка.
 - **На каждое законченное изменение — коммит через git**: `feat(plan2d): размерные линии`, `fix(walk): застревание в дверях`.
-- Не добавлять зависимости, кроме `express`, `three`, `@fontsource/manrope` и `@fontsource/cormorant-garamond`, без согласования.
+- Не добавлять зависимости, кроме `express`, `three`, `@fontsource/manrope`, `@fontsource/cormorant-garamond` и `@neondatabase/serverless`, без согласования.
 - Геометрия и валидация — только в `model.js`, правила мебели — только в `furniture.js`. Это чистые функции без DOM, каждая покрыта тестом.
 - При изменении формата данных обновлять этот файл.
 - После этапа проверять, что `npm test` проходит, страница открывается и в консоли нет ошибок.

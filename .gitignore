@@ -1,3 +1,8 @@
 node_modules/
 *.tmp
 .claude/
+.env
+.env.*
+!.env.example
+.vercel/
+public/vendor/
