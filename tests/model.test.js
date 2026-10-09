@@ -122,6 +122,10 @@ test('wallBoxes: перемычки, подоконная часть, стекл
   // Вход: перемычка и полотно.
   assert.deepEqual(at(100, 190, 700).map((b) => b.kind), ['wall', 'entrance']);
   assert.ok(boxes.every((b) => b.x1 > b.x0 && b.y1 > b.y0 && b.z1 > b.z0));
+  // Каждый объём знает стороны своей стены — по ним 3D выбирает отделку.
+  assert.deepEqual([win[0].dir, win[0].a, win[0].b, win[0].wallKind], ['h', null, 'r1', 'outer']);
+  const inner = at(150, 230, 400)[0];
+  assert.deepEqual([inner.dir, inner.a, inner.b, inner.wallKind], ['h', 'r1', 'r3', 'inner']);
 });
 
 test('roomGraph, entranceRoom и reachableRooms', () => {

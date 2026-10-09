@@ -157,14 +157,15 @@ export function splitWall(wall, openings) {
   return pieces;
 }
 
-// Объёмы для 3D: { x0, y0, x1, y1 (план), z0, z1 (высота), kind, wallKind }.
+// Объёмы для 3D: { x0, y0, x1, y1 (план), z0, z1 (высота), kind, wallKind, dir, a, b }.
+// dir, a, b — как у стены: по ним 3D выбирает отделку каждой стороны.
 // kind: 'wall' — стена, перемычка или подоконная часть; 'glass' — стекло; 'entrance' — полотно входной двери.
 export function wallBoxes(plan) {
   const boxes = [];
   const h = plan.height;
   for (const wall of buildWalls(plan)) {
     const box = (from, to, z0, z1, kind = 'wall', t) => {
-      if (z1 > z0 && to > from) boxes.push({ ...pieceRect(wall, from, to, t), z0, z1, kind, wallKind: wall.kind });
+      if (z1 > z0 && to > from) boxes.push({ ...pieceRect(wall, from, to, t), z0, z1, kind, wallKind: wall.kind, dir: wall.dir, a: wall.a, b: wall.b });
     };
     for (const { from, to, opening } of splitWall(wall, plan.openings)) {
       if (!opening) {

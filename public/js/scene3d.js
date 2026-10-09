@@ -6,81 +6,264 @@ import { wallBoxes } from './model.js';
 import { createWalk } from './walk.js';
 
 const S = 0.01; // см → м
+const TEX = 512; // сторона текстуры, px
 
-function canvasTexture(size, paint) {
-  const canvas = document.createElement('canvas');
-  canvas.width = canvas.height = size;
-  paint(canvas.getContext('2d'), size);
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.anisotropy = 8;
-  return texture;
+// Детерминированный генератор для рисунка текстур.
+function seeded(seed) {
+  return () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
 }
 
-// Детерминированный шум для текстур.
-function noise(ctx, size, count, alpha) {
-  let seed = 7;
-  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+// Мелкое зерно: светлые и тёмные точки.
+function grain(ctx, n, count, alpha, rnd = seeded(7)) {
   for (let i = 0; i < count; i++) {
     ctx.fillStyle = `rgba(${rnd() < 0.5 ? '0,0,0' : '255,255,255'},${rnd() * alpha})`;
-    ctx.fillRect(rnd() * size, rnd() * size, 1 + rnd() * 3, 1 + rnd() * 3);
+    ctx.fillRect(rnd() * n, rnd() * n, 1 + rnd() * 2, 1 + rnd() * 2);
   }
 }
 
-// Текстуры пола; size — сторона тайла в метрах.
-const FLOORS = {
+// Крупные мягкие пятна — неоднородность тона.
+function blotches(ctx, n, count, alpha, rnd = seeded(11)) {
+  for (let i = 0; i < count; i++) {
+    const x = rnd() * n;
+    const y = rnd() * n;
+    const r = n * (0.08 + rnd() * 0.18);
+    const dark = rnd() < 0.5;
+    // Рисуем с переносом через край, чтобы тайл стыковался без шва.
+    for (const dx of [-n, 0, n]) {
+      for (const dy of [-n, 0, n]) {
+        const g = ctx.createRadialGradient(x + dx, y + dy, 0, x + dx, y + dy, r);
+        g.addColorStop(0, `rgba(${dark ? '0,0,0' : '255,255,255'},${alpha})`);
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(x + dx - r, y + dy - r, r * 2, r * 2);
+      }
+    }
+  }
+}
+
+// Процедурные текстуры. size — сторона тайла в метрах, bump — сила рельефа.
+const TEXTURES = {
+  // Ламинат: доски вразбежку с волокнами.
   laminate: {
     size: 1.6,
+    roughness: 0.62,
+    bump: 0.6,
     paint(ctx, n) {
-      const tones = ['#C9A57A', '#C19C70', '#CDAA80', '#BC966A'];
+      const rnd = seeded(3);
+      const tones = ['#C9A57A', '#C19C70', '#CDAA80', '#BC966A', '#C6A075'];
       const rows = 8;
+      const rh = n / rows;
       for (let r = 0; r < rows; r++) {
-        const shift = (r % 2) * (n / 2) + ((r * 37) % 50);
+        const shift = Math.floor(rnd() * n);
         for (let k = -1; k < 2; k++) {
-          ctx.fillStyle = tones[(r * 3 + k + 4) % tones.length];
-          ctx.fillRect(k * n + shift, (r * n) / rows, n, n / rows);
-          ctx.fillStyle = 'rgba(70,45,20,.35)';
-          ctx.fillRect(k * n + shift, (r * n) / rows, 1.5, n / rows);
+          const x = k * n + shift;
+          ctx.fillStyle = tones[Math.floor(rnd() * tones.length)];
+          ctx.fillRect(x, r * rh, n, rh);
+          // Волокна вдоль доски.
+          for (let i = 0; i < 26; i++) {
+            ctx.fillStyle = `rgba(${rnd() < 0.6 ? '84,52,22' : '255,236,205'},${0.04 + rnd() * 0.08})`;
+            ctx.fillRect(x + rnd() * n, r * rh + rnd() * rh, n * (0.15 + rnd() * 0.5), 1);
+          }
+          ctx.fillStyle = 'rgba(58,36,14,.55)';
+          ctx.fillRect(x, r * rh, 2, rh);
         }
-        ctx.fillStyle = 'rgba(70,45,20,.3)';
-        ctx.fillRect(0, (r * n) / rows, n, 1.5);
+        ctx.fillStyle = 'rgba(58,36,14,.5)';
+        ctx.fillRect(0, r * rh, n, 2);
       }
-      noise(ctx, n, 1400, 0.05);
+      grain(ctx, n, 2500, 0.04);
     },
   },
+  // Напольная плитка 60×60 с затиркой.
   tile: {
     size: 1.2,
+    roughness: 0.3,
+    bump: 1,
     paint(ctx, n) {
-      ctx.fillStyle = '#D9DEDC';
+      const rnd = seeded(5);
+      const half = n / 2;
+      for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < 2; j++) {
+          const v = 212 + Math.floor(rnd() * 12);
+          ctx.fillStyle = `rgb(${v},${v + 4},${v + 2})`;
+          ctx.fillRect(i * half, j * half, half, half);
+        }
+      }
+      blotches(ctx, n, 10, 0.05);
+      grain(ctx, n, 1500, 0.03);
+      ctx.fillStyle = '#A9B0AE';
+      for (let i = 0; i < 2; i++) {
+        ctx.fillRect(i * half - 2, 0, 4, n);
+        ctx.fillRect(0, i * half - 2, n, 4);
+      }
+      ctx.fillRect(n - 2, 0, 2, n);
+      ctx.fillRect(0, n - 2, n, 2);
+    },
+  },
+  // Настенная плитка 30×60 в санузле.
+  wallTile: {
+    size: 1.2,
+    roughness: 0.22,
+    bump: 1,
+    paint(ctx, n) {
+      const rnd = seeded(9);
+      const tw = n / 2;
+      const th = n / 4;
+      for (let r = 0; r < 4; r++) {
+        for (let c = -1; c < 2; c++) {
+          const x = c * tw + (r % 2) * (tw / 2);
+          const v = 226 + Math.floor(rnd() * 10);
+          ctx.fillStyle = `rgb(${v},${v + 3},${v - 1})`;
+          ctx.fillRect(x, r * th, tw, th);
+          ctx.fillStyle = '#B9C0BD';
+          ctx.fillRect(x, r * th, 3, th);
+        }
+        ctx.fillStyle = '#B9C0BD';
+        ctx.fillRect(0, r * th, n, 3);
+      }
+      grain(ctx, n, 800, 0.025);
+    },
+  },
+  // Тёплая штукатурка.
+  plaster: {
+    size: 2,
+    roughness: 0.95,
+    bump: 0.08,
+    paint(ctx, n) {
+      ctx.fillStyle = '#F5EFE3';
       ctx.fillRect(0, 0, n, n);
-      noise(ctx, n, 600, 0.04);
-      ctx.fillStyle = '#B4BAB8';
+      blotches(ctx, n, 26, 0.016);
+      grain(ctx, n, 9000, 0.03);
+    },
+  },
+  // Фасад: крупные каменные плиты.
+  facade: {
+    size: 2.4,
+    roughness: 0.9,
+    bump: 0.8,
+    paint(ctx, n) {
+      const rnd = seeded(13);
+      const rows = 4;
+      const rh = n / rows;
+      for (let r = 0; r < rows; r++) {
+        for (let c = -1; c < 3; c++) {
+          const x = c * (n / 2) + (r % 2) * (n / 4);
+          const v = Math.floor(rnd() * 14);
+          ctx.fillStyle = `rgb(${206 + v},${192 + v},${170 + v})`;
+          ctx.fillRect(x, r * rh, n / 2, rh);
+          ctx.fillStyle = 'rgba(96,82,62,.6)';
+          ctx.fillRect(x, r * rh, 3, rh);
+        }
+        ctx.fillStyle = 'rgba(96,82,62,.6)';
+        ctx.fillRect(0, r * rh, n, 3);
+      }
+      blotches(ctx, n, 18, 0.05);
+      grain(ctx, n, 7000, 0.06);
+    },
+  },
+  // Шпон входной двери: вертикальные волокна.
+  wood: {
+    size: 1,
+    roughness: 0.5,
+    bump: 0.4,
+    paint(ctx, n) {
+      const rnd = seeded(17);
+      ctx.fillStyle = '#6F4D31';
+      ctx.fillRect(0, 0, n, n);
+      for (let i = 0; i < 220; i++) {
+        ctx.fillStyle = `rgba(${rnd() < 0.55 ? '38,22,10' : '176,128,84'},${0.05 + rnd() * 0.12})`;
+        ctx.fillRect(rnd() * n, 0, 1 + rnd() * 2, n);
+      }
+      grain(ctx, n, 2000, 0.04);
+    },
+  },
+  // Бетонный пол.
+  concrete: {
+    size: 2.4,
+    roughness: 0.95,
+    bump: 0.5,
+    paint(ctx, n) {
+      ctx.fillStyle = '#BDBBB5';
+      ctx.fillRect(0, 0, n, n);
+      blotches(ctx, n, 30, 0.04);
+      grain(ctx, n, 14000, 0.06);
+    },
+  },
+  // Бетонная стена: щиты опалубки и отверстия от стяжек.
+  concreteWall: {
+    size: 2.4,
+    roughness: 0.95,
+    bump: 0.8,
+    paint(ctx, n) {
+      ctx.fillStyle = '#D2CFC9';
+      ctx.fillRect(0, 0, n, n);
+      blotches(ctx, n, 30, 0.035, seeded(23));
+      grain(ctx, n, 12000, 0.05, seeded(29));
+      ctx.fillStyle = 'rgba(70,68,64,.3)';
       for (let i = 0; i < 2; i++) {
         ctx.fillRect((i * n) / 2, 0, 2, n);
         ctx.fillRect(0, (i * n) / 2, n, 2);
       }
-    },
-  },
-  concrete: {
-    size: 2.4,
-    paint(ctx, n) {
-      ctx.fillStyle = '#A9A7A2';
-      ctx.fillRect(0, 0, n, n);
-      noise(ctx, n, 5000, 0.07);
+      ctx.fillStyle = 'rgba(60,58,54,.4)';
+      for (const x of [n / 8, (3 * n) / 8, (5 * n) / 8, (7 * n) / 8]) {
+        for (const y of [n / 8, (3 * n) / 8, (5 * n) / 8, (7 * n) / 8]) {
+          ctx.beginPath();
+          ctx.arc(x, y, 4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
     },
   },
 };
 
+// Отделка: какая текстура у стены в комнате данного типа (null — улица), у пола и двери.
 const PALETTE = {
-  whitebox: { wall: 0xbdbab4, ceiling: 0xcfccc6, door: 0x8d8a84, floor: () => 'concrete' },
+  whitebox: {
+    wall: () => 'concreteWall',
+    floor: () => 'concrete',
+    door: 'concreteWall',
+    cut: 0xa9a6a0, // срез стены сверху
+    ceiling: 0xcfccc6,
+  },
   finish: {
-    wall: 0xf4eee3,
-    ceiling: 0xfbf8f2,
-    door: 0x6f4d31,
+    wall: (type) => (type === null ? 'facade' : type === 'bathroom' ? 'wallTile' : 'plaster'),
     floor: (type) => (type === 'bathroom' ? 'tile' : 'laminate'),
+    door: 'wood',
+    cut: 0xe6dfd2,
+    ceiling: 0xfbf8f2,
   },
 };
+
+export function createTextures() {
+  return Object.fromEntries(
+    Object.entries(TEXTURES).map(([key, def]) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = TEX;
+      def.paint(canvas.getContext('2d'), TEX);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.anisotropy = 8;
+      return [key, texture];
+    }),
+  );
+}
+
+// UV по мировым координатам (в метрах): рисунок не растягивается и совпадает
+// на перекрывающихся гранях соседних кусков стены. tiles — размер тайла для каждой из 6 граней.
+function worldUV(geometry, cx, cy, cz, tiles) {
+  const pos = geometry.attributes.position;
+  const nor = geometry.attributes.normal;
+  const uv = geometry.attributes.uv;
+  for (let i = 0; i < uv.count; i++) {
+    const tile = tiles[Math.floor(i / 4)];
+    const x = pos.getX(i) + cx;
+    const y = pos.getY(i) + cy;
+    const z = pos.getZ(i) + cz;
+    if (Math.abs(nor.getX(i)) > 0.5) uv.setXY(i, z / tile, y / tile);
+    else if (Math.abs(nor.getY(i)) > 0.5) uv.setXY(i, x / tile, z / tile);
+    else uv.setXY(i, x / tile, y / tile);
+  }
+}
 
 function makeLabel(lines) {
   const canvas = document.createElement('canvas');
@@ -110,47 +293,71 @@ function makeLabel(lines) {
 export function buildApartment(plan, finish, textures) {
   const palette = PALETTE[finish] || PALETTE.finish;
   const group = new THREE.Group();
-  const materials = {
-    wall: new THREE.MeshStandardMaterial({ color: palette.wall, roughness: 0.92 }),
-    entrance: new THREE.MeshStandardMaterial({ color: palette.door, roughness: 0.6 }),
-    glass: new THREE.MeshStandardMaterial({
-      color: 0xbcd6de,
-      roughness: 0.08,
-      metalness: 0.1,
-      transparent: true,
-      opacity: 0.3,
-      depthWrite: false,
-    }),
-    ceiling: new THREE.MeshStandardMaterial({ color: palette.ceiling, roughness: 1 }),
-  };
+  const typeOf = new Map(plan.rooms.map((r) => [r.id, r.type]));
+
+  const materials = {};
+  // Материал с текстурой; текстура служит и картой рельефа.
+  const textured = (key) =>
+    (materials[key] ||= new THREE.MeshStandardMaterial({
+      map: textures[key],
+      bumpMap: textures[key],
+      bumpScale: TEXTURES[key].bump,
+      roughness: TEXTURES[key].roughness,
+    }));
+  const cut = (materials.cut = new THREE.MeshStandardMaterial({ color: palette.cut, roughness: 1 }));
+  const glass = (materials.glass = new THREE.MeshStandardMaterial({
+    color: 0xbcd6de,
+    roughness: 0.08,
+    metalness: 0.1,
+    transparent: true,
+    opacity: 0.3,
+    depthWrite: false,
+  }));
+  const ceilingMaterial = (materials.ceiling = new THREE.MeshStandardMaterial({ color: palette.ceiling, roughness: 1 }));
 
   for (const b of wallBoxes(plan)) {
-    const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry((b.x1 - b.x0) * S, (b.z1 - b.z0) * S, (b.y1 - b.y0) * S),
-      materials[b.kind],
-    );
-    mesh.position.set(((b.x0 + b.x1) / 2) * S, ((b.z0 + b.z1) / 2) * S, ((b.y0 + b.y1) / 2) * S);
+    const geometry = new THREE.BoxGeometry((b.x1 - b.x0) * S, (b.z1 - b.z0) * S, (b.y1 - b.y0) * S);
+    const cx = ((b.x0 + b.x1) / 2) * S;
+    const cy = ((b.z0 + b.z1) / 2) * S;
+    const cz = ((b.y0 + b.y1) / 2) * S;
+    let material;
+    if (b.kind === 'glass') {
+      material = glass;
+    } else if (b.kind === 'entrance') {
+      material = textured(palette.door);
+      worldUV(geometry, cx, cy, cz, Array(6).fill(TEXTURES[palette.door].size));
+    } else {
+      // Грани куска стены: к комнате a (сверху/слева), к комнате b (снизу/справа), торцы и срез.
+      const keyA = palette.wall(b.a === null ? null : typeOf.get(b.a));
+      const keyB = palette.wall(b.b === null ? null : typeOf.get(b.b));
+      const inner = palette.wall('hall');
+      // Порядок граней BoxGeometry: +x, -x, +y, -y, +z, -z.
+      const keys = b.dir === 'h' ? [inner, inner, null, inner, keyB, keyA] : [keyB, keyA, null, inner, inner, inner];
+      material = keys.map((key) => (key ? textured(key) : cut));
+      worldUV(geometry, cx, cy, cz, keys.map((key) => (key ? TEXTURES[key].size : 1)));
+    }
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(cx, cy, cz);
     if (b.kind === 'glass') mesh.renderOrder = 1;
     group.add(mesh);
   }
 
   for (const room of plan.rooms) {
-    const kind = palette.floor(room.type);
-    materials[kind] ||= new THREE.MeshStandardMaterial({ map: textures[kind], roughness: kind === 'tile' ? 0.35 : 0.75 });
+    const key = palette.floor(room.type);
     const geometry = new THREE.PlaneGeometry(room.w * S, room.l * S);
     // UV в метрах, чтобы рисунок пола не растягивался.
     const uv = geometry.attributes.uv;
-    const tile = FLOORS[kind].size;
+    const tile = TEXTURES[key].size;
     for (let i = 0; i < uv.count; i++) {
       uv.setXY(i, ((room.x + uv.getX(i) * room.w) * S) / tile, ((room.y + uv.getY(i) * room.l) * S) / tile);
     }
-    const floor = new THREE.Mesh(geometry, materials[kind]);
+    const floor = new THREE.Mesh(geometry, textured(key));
     floor.rotation.x = -Math.PI / 2;
     floor.position.set((room.x + room.w / 2) * S, 0, (room.y + room.l / 2) * S);
     group.add(floor);
   }
 
-  const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(plan.width * S, plan.length * S), materials.ceiling);
+  const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(plan.width * S, plan.length * S), ceilingMaterial);
   ceiling.rotation.x = Math.PI / 2;
   ceiling.position.set((plan.width / 2) * S, plan.height * S, (plan.length / 2) * S);
   ceiling.name = 'ceiling';
@@ -161,10 +368,6 @@ export function buildApartment(plan, finish, textures) {
     Object.values(materials).forEach((m) => m.dispose());
   };
   return group;
-}
-
-export function createTextures() {
-  return Object.fromEntries(Object.entries(FLOORS).map(([k, f]) => [k, canvasTexture(256, f.paint)]));
 }
 
 export function createViewer({ container, plan, finish, labelOf, onPlayer, onModeChange, onLock }) {
