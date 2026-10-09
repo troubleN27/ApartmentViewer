@@ -191,6 +191,7 @@ const view3d = {
   minimap: null,
   keepOnFsExit: false, // выход из полноэкранного режима не должен закрывать сцену
   room: null,
+  locked: false,
 };
 
 function updateHud() {
@@ -202,7 +203,7 @@ function updateHud() {
   $('hud-sub').textContent = room
     ? `${t(`room.${room.type}`)} · ${formatArea(roomArea(room))} ${t('unit.m2')}`
     : `${t('rooms.full', { n: apt.rooms })} · ${formatArea(planArea(apt.plan))} ${t('unit.m2')}`;
-  $('hud-hint').textContent = t(walking ? 'v3d.hintWalk' : 'v3d.hintOrbit');
+  $('hud-hint').textContent = t(!walking ? 'v3d.hintOrbit' : view3d.locked ? 'v3d.hintWalk' : 'v3d.clickToLook');
   $('minimap').hidden = !walking;
   $('crosshair').hidden = !walking;
   $('view-3d').classList.toggle('is-walk', walking);
@@ -240,6 +241,10 @@ async function open3d() {
         view3d.room = room;
         updateHud();
       }
+    },
+    onLock(locked) {
+      view3d.locked = locked;
+      updateHud();
     },
     onModeChange(mode) {
       view3d.mode = mode;
@@ -383,6 +388,7 @@ $('lead-form').addEventListener('submit', async (e) => {
 function initDevPanel() {
   if (new URLSearchParams(location.search).get('dev') !== '1') return;
   $('dev-panel').hidden = false;
+  window.__nd = { state, view3d }; // для отладки из консоли
 
   $('dev-random').addEventListener('click', async () => {
     const input = $('dev-seed');
