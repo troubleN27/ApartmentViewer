@@ -9,9 +9,9 @@ export const DEFAULT_FILTERS = { rooms: 0, price: 'any', fav: false };
 const STATUSES = ['free', 'reserved', 'sold'];
 const PRICE_RANGES = {
   any: [0, Infinity],
-  low: [0, 600e6],
-  mid: [600e6, 900e6],
-  high: [900e6, Infinity],
+  low: [0, 500e6],
+  mid: [500e6, 700e6],
+  high: [700e6, Infinity],
 };
 
 export function matchesFilters(apt, filters, favorites) {

@@ -9,6 +9,7 @@ import {
   startPosition,
   collide,
   countLivingRooms,
+  roomArea,
 } from '../public/js/model.js';
 
 test('mulberry32 воспроизводим и даёт числа в [0, 1)', () => {
@@ -39,9 +40,15 @@ test('randomApartment: 50 seed-ов — планы валидны, все ком
     assert.ok(wallBoxes(plan).length > 0);
     const start = startPosition(plan);
     assert.deepEqual(collide(start, buildColliders(plan)), { x: start.x, y: start.y }, `seed ${seed}: старт в стене`);
+    // Санузел компактный и меньше остальных комнат.
+    const bath = plan.rooms.filter((r) => r.type === 'bathroom');
+    assert.equal(bath.length, 1);
+    assert.ok(roomArea(bath[0]) <= 6, `seed ${seed}: санузел ${roomArea(bath[0])} м²`);
+    assert.ok(plan.rooms.every((r) => r === bath[0] || roomArea(r) > roomArea(bath[0])), `seed ${seed}`);
+    assert.equal(plan.rooms.filter((r) => r.type === 'hall').length, 1);
     seen.add(JSON.stringify(plan));
   }
-  assert.ok(seen.size > 40, 'планы должны различаться');
+  assert.equal(seen.size, 50, 'планы должны различаться');
 });
 
 test('randomApartment учитывает комнатность', () => {
