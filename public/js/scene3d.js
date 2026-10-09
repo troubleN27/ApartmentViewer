@@ -352,7 +352,7 @@ export function createViewer({ container, plan, finish, furniture = [], labelOf,
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  const BG = { orbit: new THREE.Color(0xe9e3d8), walk: new THREE.Color(0xdde7ec) };
+  const BG = { orbit: new THREE.Color(0x17181b), walk: new THREE.Color(0xdde7ec) };
   scene.background = BG.orbit;
 
   const W = plan.width * S;

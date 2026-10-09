@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#111214">
   <title data-i18n="meta.title"></title>
   <link rel="stylesheet" href="/vendor/fonts/manrope/400.css">
   <link rel="stylesheet" href="/vendor/fonts/manrope/500.css">
@@ -37,6 +39,8 @@
   <main>
     <section id="view-home" class="view">
       <div class="hero">
+        <img class="hero-photo" src="/img/hero.jpg" alt="" aria-hidden="true">
+        <div class="hero-shade" aria-hidden="true"></div>
         <div class="hero-inner reveal">
           <p class="eyebrow" data-i18n="hero.eyebrow"></p>
           <h1 class="hero-title" data-i18n="hero.title"></h1>
@@ -45,29 +49,44 @@
             <span data-i18n="hero.cta"></span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
           </button>
-          <dl class="hero-stats">
-            <div><dt id="stat-floors">9</dt><dd data-i18n="hero.floors"></dd></div>
-            <div><dt id="stat-apartments">54</dt><dd data-i18n="hero.apartments"></dd></div>
-            <div><dt data-i18n="hero.deadlineValue"></dt><dd data-i18n="hero.deadline"></dd></div>
-          </dl>
         </div>
-        <div class="hero-art reveal" aria-hidden="true">
-          <svg viewBox="0 0 360 480" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <pattern id="facade" width="50" height="46" patternUnits="userSpaceOnUse">
-                <rect x="11" y="10" width="28" height="26" fill="none" stroke="#B8955A" stroke-width="1"/>
-                <path d="M25 10v26" stroke="#B8955A" stroke-width=".6"/>
-              </pattern>
-            </defs>
-            <rect width="360" height="480" fill="#1C1D21"/>
-            <rect x="30" y="40" width="300" height="414" fill="url(#facade)"/>
-            <path d="M30 40h300M30 454h300" stroke="#B8955A" stroke-width="1"/>
-            <rect x="80" y="86" width="50" height="46" fill="#B8955A" opacity=".18"/>
-            <rect x="230" y="224" width="50" height="46" fill="#B8955A" opacity=".28"/>
-            <rect x="130" y="362" width="50" height="46" fill="#B8955A" opacity=".14"/>
-          </svg>
-        </div>
+        <dl class="hero-stats reveal">
+          <div><dt id="stat-floors">9</dt><dd data-i18n="hero.floors"></dd></div>
+          <div><dt id="stat-apartments">54</dt><dd data-i18n="hero.apartments"></dd></div>
+          <div><dt data-i18n="hero.deadlineValue"></dt><dd data-i18n="hero.deadline"></dd></div>
+        </dl>
       </div>
+
+      <section class="about">
+        <div class="about-text">
+          <p class="eyebrow" data-i18n="about.eyebrow"></p>
+          <h2 data-i18n="about.title"></h2>
+          <p class="section-hint" data-i18n="about.text"></p>
+          <ul class="features">
+            <li><strong data-i18n="about.f1.title"></strong><span data-i18n="about.f1.text"></span></li>
+            <li><strong data-i18n="about.f2.title"></strong><span data-i18n="about.f2.text"></span></li>
+            <li><strong data-i18n="about.f3.title"></strong><span data-i18n="about.f3.text"></span></li>
+          </ul>
+        </div>
+        <figure class="photo about-photo">
+          <img src="/img/top.jpg" loading="lazy" data-i18n-alt="about.caption" alt="">
+          <figcaption data-i18n="about.caption"></figcaption>
+        </figure>
+      </section>
+
+      <section class="gallery">
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="gallery.eyebrow"></p>
+          <h2 data-i18n="gallery.title"></h2>
+          <p class="section-hint" data-i18n="gallery.hint"></p>
+        </div>
+        <div class="gallery-grid">
+          <figure class="photo"><img src="/img/living.jpg" loading="lazy" data-i18n-alt="room.living" alt=""><figcaption data-i18n="room.living"></figcaption></figure>
+          <figure class="photo"><img src="/img/bedroom.jpg" loading="lazy" data-i18n-alt="room.bedroom" alt=""><figcaption data-i18n="room.bedroom"></figcaption></figure>
+          <figure class="photo"><img src="/img/kitchen.jpg" loading="lazy" data-i18n-alt="room.kitchen" alt=""><figcaption data-i18n="room.kitchen"></figcaption></figure>
+          <figure class="photo"><img src="/img/bathroom.jpg" loading="lazy" data-i18n-alt="room.bathroom" alt=""><figcaption data-i18n="room.bathroom"></figcaption></figure>
+        </div>
+      </section>
 
       <section id="chess" class="chess-section">
         <div class="section-head">

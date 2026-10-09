@@ -4,16 +4,16 @@ import { buildWalls, wallPosts, splitWall, roomArea, roomAt, formatArea, PLAYER_
 import { CATALOG, MATERIALS, footprint } from './furniture.js';
 
 export const ROOM_COLORS = {
-  living: '#F1E8D6',
-  bedroom: '#E2E8DD',
-  kitchen: '#F3E2D5',
-  bathroom: '#DCE7EA',
-  hall: '#EBE7E0',
+  living: '#3A3427',
+  bedroom: '#2B352E',
+  kitchen: '#3B2F28',
+  bathroom: '#27353B',
+  hall: '#2F3035',
 };
-const INK = '#1C1D21';
-const GOLD = '#B8955A';
-const MUTED = '#6B6B70';
-const PAPER = '#FFFDF9';
+const INK = '#ECE7DC'; // стены и подписи — светлые на тёмном
+const GOLD = '#C6A46A';
+const MUTED = '#A09D95';
+const PAPER = '#15161A';
 const FONT = 'Manrope, system-ui, sans-serif';
 
 export function createPlanView(canvas, { tooltip = null, minimap = false } = {}) {
@@ -59,7 +59,7 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
       ctx.fillStyle = ROOM_COLORS[r.type];
       ctx.fillRect(px(r.x), py(r.y), r.w * scale, r.l * scale);
       if (hover === r.id) {
-        ctx.fillStyle = 'rgba(184, 149, 90, .22)';
+        ctx.fillStyle = 'rgba(198, 164, 106, .2)';
         ctx.fillRect(px(r.x), py(r.y), r.w * scale, r.l * scale);
       }
     }
@@ -152,7 +152,7 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
     ctx.translate(-def.w / 2, -def.d / 2);
     ctx.globalAlpha = alpha;
     if (minimap) {
-      ctx.fillStyle = 'rgba(28, 29, 33, .22)';
+      ctx.fillStyle = 'rgba(236, 231, 220, .26)';
       if (!def.flat) ctx.fillRect(0, 0, def.w, def.d);
       ctx.restore();
       return;
@@ -206,7 +206,7 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
   function label(text, x, y) {
     if (furniture.length) {
       ctx.save();
-      ctx.strokeStyle = 'rgba(255, 253, 249, .85)';
+      ctx.strokeStyle = 'rgba(17, 18, 20, .8)';
       ctx.lineWidth = 4;
       ctx.lineJoin = 'round';
       ctx.strokeText(text, x, y);

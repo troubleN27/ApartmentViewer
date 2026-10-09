@@ -21,6 +21,20 @@ const dict = {
     'hero.deadline': 'срок сдачи',
     'hero.deadlineValue': 'IV кв. 2027',
 
+    'about.eyebrow': 'О комплексе',
+    'about.title': 'Дом, в который хочется войти',
+    'about.text': 'Девять этажей, 54 квартиры и ни одной случайной планировки: у каждой свои пропорции, свет и характер.',
+    'about.f1.title': 'Свет в каждой комнате',
+    'about.f1.text': 'Окна есть в гостиной, в каждой спальне и на кухне.',
+    'about.f2.title': 'Высокие потолки',
+    'about.f2.text': 'От 2,7 до 3 метров — воздух и простор.',
+    'about.f3.title': 'Примерьте до покупки',
+    'about.f3.text': 'Планировка в 2D, прогулка в 3D и своя расстановка мебели.',
+    'about.caption': 'Квартира в разрезе',
+    'gallery.eyebrow': 'Интерьеры',
+    'gallery.title': 'Как это может выглядеть',
+    'gallery.hint': 'Визуализации квартиры с одним из вариантов обстановки. Свой вариант можно собрать в планировке или прямо в 3D.',
+
     'chess.eyebrow': 'Шахматка',
     'chess.title': 'Выберите квартиру',
     'chess.hint': 'Цвет ячейки показывает статус, цены указаны в сумах. Нажмите на квартиру, чтобы открыть планировку.',
@@ -192,6 +206,20 @@ const dict = {
     'hero.apartments': 'xonadon',
     'hero.deadline': 'topshirish muddati',
     'hero.deadlineValue': '2027, IV chorak',
+
+    'about.eyebrow': 'Majmua haqida',
+    'about.title': 'Kirging keladigan uy',
+    'about.text': "To'qqiz qavat, 54 xonadon va birorta tasodifiy reja yo'q: har birining o'z nisbati, yorug'ligi va xarakteri bor.",
+    'about.f1.title': "Har bir xonada yorug'lik",
+    'about.f1.text': 'Mehmonxona, har bir yotoqxona va oshxonada deraza bor.',
+    'about.f2.title': 'Baland shiftlar',
+    'about.f2.text': '2,7 dan 3 metrgacha — havo va kenglik.',
+    'about.f3.title': "Sotib olishdan oldin ko'ring",
+    'about.f3.text': "2D reja, 3D sayr va mebelni o'zingiz joylashtirish.",
+    'about.caption': 'Xonadon kesimi',
+    'gallery.eyebrow': 'Interyerlar',
+    'gallery.title': "Bu qanday ko'rinishi mumkin",
+    'gallery.hint': "Jihozlash variantlaridan biri bilan xonadon vizualizatsiyalari. O'z variantingizni rejada yoki bevosita 3D da yig'ishingiz mumkin.",
 
     'chess.eyebrow': 'Shaxmatka',
     'chess.title': 'Xonadonni tanlang',
@@ -387,6 +415,9 @@ export function applyI18n(root = document) {
   });
   root.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
     el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  root.querySelectorAll('[data-i18n-alt]').forEach((el) => {
+    el.alt = t(el.dataset.i18nAlt);
   });
   root.querySelectorAll('[data-i18n-aria]').forEach((el) => {
     const text = t(el.dataset.i18nAria);
