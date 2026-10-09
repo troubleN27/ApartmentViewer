@@ -2,10 +2,13 @@
 // Режим облёта (OrbitControls) и запуск прогулки (walk.js).
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { wallBoxes } from './model.js';
+import { wallBoxes, trimBoxes } from './model.js';
 import { createWalk } from './walk.js';
 
 const S = 0.01; // см → м
+// Вертикальный угол обзора в прогулке. Шире — и двери с окнами выглядят мелкими,
+// а движение слишком быстрым: квартира кажется игрушечной.
+const WALK_FOV = 60;
 const TEX = 512; // сторона текстуры, px
 
 // Детерминированный генератор для рисунка текстур.
@@ -215,6 +218,8 @@ const PALETTE = {
     door: 'concreteWall',
     cut: 0xa9a6a0, // срез стены сверху
     ceiling: 0xcfccc6,
+    // В черновой отделке есть только окна — без плинтусов и наличников.
+    trim: { frame: 0x8f8d88, sill: 0x9d9a94 },
   },
   finish: {
     wall: (type) => (type === null ? 'facade' : type === 'bathroom' ? 'wallTile' : 'plaster'),
@@ -222,6 +227,7 @@ const PALETTE = {
     door: 'wood',
     cut: 0xe6dfd2,
     ceiling: 0xfbf8f2,
+    trim: { baseboard: 0xfaf6ee, casing: 0xfaf6ee, frame: 0xfdfbf7, sill: 0xfdfbf7 },
   },
 };
 
@@ -343,6 +349,20 @@ export function buildApartment(plan, finish, textures) {
     group.add(floor);
   }
 
+  // Плинтусы, наличники, оконные рамы и подоконники — привычные по размеру детали,
+  // по которым считывается масштаб комнаты.
+  for (const b of trimBoxes(plan)) {
+    const color = palette.trim[b.kind];
+    if (color === undefined) continue;
+    const material = (materials[`trim${color}`] ||= new THREE.MeshStandardMaterial({ color, roughness: 0.55 }));
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry((b.x1 - b.x0) * S, (b.z1 - b.z0) * S, (b.y1 - b.y0) * S),
+      material,
+    );
+    mesh.position.set(((b.x0 + b.x1) / 2) * S, ((b.z0 + b.z1) / 2) * S, ((b.y0 + b.y1) / 2) * S);
+    group.add(mesh);
+  }
+
   const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(plan.width * S, plan.length * S), ceilingMaterial);
   ceiling.rotation.x = Math.PI / 2;
   ceiling.position.set((plan.width / 2) * S, plan.height * S, (plan.length / 2) * S);
@@ -460,7 +480,7 @@ export function createViewer({ container, plan, finish, labelOf, onPlayer, onMod
       orbitState.target.copy(controls.target);
       controls.enabled = false;
       mode = 'walk';
-      camera.fov = 72;
+      camera.fov = WALK_FOV;
       camera.updateProjectionMatrix();
       walk = createWalk({
         camera,

@@ -9,6 +9,10 @@ export const WINDOW_H = 150;
 export const ENTRANCE_W = 90;
 export const PLAYER_R = 25;
 export const MIN_PASS = 50; // минимальная ширина проёма, в который проходит игрок
+export const TRIM_T = 1.5; // толщина плинтуса и наличника
+export const BASEBOARD_H = 8;
+export const CASING_W = 7; // ширина наличника
+export const FRAME_W = 5; // ширина профиля оконной рамы
 
 export const ROOM_TYPES = ['living', 'bedroom', 'kitchen', 'bathroom', 'hall'];
 export const OPENING_TYPES = ['door', 'entrance', 'window'];
@@ -130,10 +134,13 @@ function wallNodes(walls) {
     const e = along(w) + w.len;
     for (const [x, y] of [[w.x, w.y], w.dir === 'h' ? [e, w.y] : [w.x, e]]) {
       const key = `${x},${y}`;
-      if (!nodes.has(key)) nodes.set(key, { x, y, th: 0, tv: 0 });
+      if (!nodes.has(key)) nodes.set(key, { x, y, th: 0, tv: 0, covered: {} });
       const node = nodes.get(key);
       if (w.dir === 'h') node.th = Math.max(node.th, w.t);
       else node.tv = Math.max(node.tv, w.t);
+      // С какой стороны узла уходит стена: эта грань столбика закрыта.
+      const start = x === w.x && y === w.y;
+      node.covered[w.dir === 'h' ? (start ? 'xp' : 'xn') : start ? 'yp' : 'yn'] = true;
     }
   }
   return nodes;
@@ -142,17 +149,19 @@ function wallNodes(walls) {
 // Столбики в узлах, где сходятся горизонтальные и вертикальные стены.
 // { x0, y0, x1, y1, faces: { xn, xp, yn, yp } } — faces: id комнаты (или null — улица),
 // к которой обращена грань с этой стороны (xn — в сторону −X и т. д.).
+// У граней, закрытых примыкающей стеной, значения нет (undefined).
 export function wallPosts(plan, walls = buildWalls(plan)) {
   const side = (x, y) => roomAt(plan, x, y)?.id ?? null;
   const posts = [];
-  for (const { x, y, th, tv } of wallNodes(walls).values()) {
+  for (const { x, y, th, tv, covered } of wallNodes(walls).values()) {
     if (!th || !tv) continue;
+    const face = (key, px, py) => (covered[key] ? undefined : side(px, py));
     posts.push({
       x0: x - tv / 2,
       y0: y - th / 2,
       x1: x + tv / 2,
       y1: y + th / 2,
-      faces: { xn: side(x - tv, y), xp: side(x + tv, y), yn: side(x, y - th), yp: side(x, y + th) },
+      faces: { xn: face('xn', x - tv, y), xp: face('xp', x + tv, y), yn: face('yn', x, y - th), yp: face('yp', x, y + th) },
     });
   }
   return posts;
@@ -231,6 +240,73 @@ export function wallBoxes(plan) {
     }
   }
   return boxes;
+}
+
+// Отделочные детали для 3D — по ним глаз считывает масштаб комнаты.
+// → [{ x0, y0, x1, y1, z0, z1, kind }], kind:
+// 'baseboard' — плинтус вдоль стен комнаты, 'casing' — наличник двери,
+// 'frame' — профиль оконной рамы в проёме, 'sill' — подоконник.
+export function trimBoxes(plan) {
+  const out = [];
+  const h = plan.height;
+  const walls = buildWalls(plan);
+  const push = (kind, rect, z0, z1) => {
+    if (z1 > z0 && rect.x1 > rect.x0 && rect.y1 > rect.y0) out.push({ ...rect, z0, z1, kind });
+  };
+  // Полоса на грани стены со стороны side (−1 — к комнате a, +1 — к комнате b), выступает на depth.
+  const onFace = (wall, side, from, to, depth = TRIM_T) => {
+    const c = across(wall) + (side * wall.t) / 2;
+    const [lo, hi] = side < 0 ? [c - depth, c] : [c, c + depth];
+    return wall.dir === 'h' ? { x0: from, y0: lo, x1: to, y1: hi } : { x0: lo, y0: from, x1: hi, y1: to };
+  };
+
+  for (const wall of walls) {
+    const sides = [];
+    if (wall.a !== null) sides.push(-1);
+    if (wall.b !== null) sides.push(1);
+    for (const { from, to, opening } of splitWall(wall, plan.openings)) {
+      const isWindow = opening?.type === 'window';
+      const isDoor = opening && !isWindow;
+      for (const side of sides) {
+        if (!isDoor) {
+          push('baseboard', onFace(wall, side, from, to), 0, BASEBOARD_H);
+        } else {
+          const top = Math.min(h, DOOR_H + CASING_W);
+          push('casing', onFace(wall, side, Math.max(wall.from, from - CASING_W), from), 0, top);
+          push('casing', onFace(wall, side, to, Math.min(wall.to, to + CASING_W)), 0, top);
+          push('casing', onFace(wall, side, from, to), DOOR_H, top);
+        }
+        if (isWindow) {
+          push('sill', onFace(wall, side, Math.max(wall.from, from - 5), Math.min(wall.to, to + 5), 12), SILL_H - 3, SILL_H);
+        }
+      }
+      if (isWindow) {
+        const top = Math.min(h, SILL_H + WINDOW_H);
+        const bar = (a, b, z0, z1) => push('frame', pieceRect(wall, a, b, 6), z0, z1);
+        bar(from, from + FRAME_W, SILL_H, top);
+        bar(to - FRAME_W, to, SILL_H, top);
+        bar(from + FRAME_W, to - FRAME_W, SILL_H, SILL_H + FRAME_W);
+        bar(from + FRAME_W, to - FRAME_W, top - FRAME_W, top);
+        // Импост посередине широкого окна.
+        const mid = (from + to) / 2;
+        if (to - from >= 100) bar(mid - 2, mid + 2, SILL_H + FRAME_W, top - FRAME_W);
+      }
+    }
+  }
+
+  // Плинтус на открытых гранях столбиков, обращённых в комнату.
+  for (const p of wallPosts(plan, walls)) {
+    const strips = {
+      xn: { x0: p.x0 - TRIM_T, y0: p.y0, x1: p.x0, y1: p.y1 },
+      xp: { x0: p.x1, y0: p.y0, x1: p.x1 + TRIM_T, y1: p.y1 },
+      yn: { x0: p.x0, y0: p.y0 - TRIM_T, x1: p.x1, y1: p.y0 },
+      yp: { x0: p.x0, y0: p.y1, x1: p.x1, y1: p.y1 + TRIM_T },
+    };
+    for (const key in strips) {
+      if (typeof p.faces[key] === 'string') push('baseboard', strips[key], 0, BASEBOARD_H);
+    }
+  }
+  return out;
 }
 
 /* ---------- Достижимость ---------- */

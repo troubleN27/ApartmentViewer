@@ -5,6 +5,7 @@ import { buildColliders, collide, startPosition, PLAYER_R } from './model.js';
 
 export const WALK_SPEED = 140; // см/с
 export const RUN_SPEED = 250;
+const ACCEL = 9; // чем больше, тем резче разгон и остановка
 
 const KEYS = {
   KeyW: 'forward',
@@ -27,6 +28,8 @@ export function createWalk({ camera, domElement, plan, eyeHeight, onMove, onLock
   const start = startPosition(plan);
   let pos = { x: start.x, y: start.y };
   let active = false;
+  let vx = 0; // текущая скорость, см/с
+  let vy = 0;
   let lastSent = '';
 
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
@@ -93,17 +96,27 @@ export function createWalk({ camera, domElement, plan, eyeHeight, onMove, onLock
       const s = (pressed.has('right') ? 1 : 0) - (pressed.has('left') ? 1 : 0);
       camera.getWorldDirection(dir);
       const len = Math.hypot(dir.x, dir.z);
+      dt = Math.min(dt, 0.05);
+      // Целевая скорость по нажатым клавишам.
+      let tx = 0;
+      let ty = 0;
       if ((f || s) && len > 1e-4) {
         const fx = dir.x / len;
         const fy = dir.z / len;
         // Вправо от взгляда: (-fy, fx).
-        let mx = fx * f - fy * s;
-        let my = fy * f + fx * s;
-        const norm = Math.hypot(mx, my);
-        const step = (pressed.has('run') ? RUN_SPEED : WALK_SPEED) * Math.min(dt, 0.05);
-        mx = (mx / norm) * step;
-        my = (my / norm) * step;
-        const next = collide({ x: pos.x + mx, y: pos.y + my }, colliders);
+        const mx = fx * f - fy * s;
+        const my = fy * f + fx * s;
+        const speed = (pressed.has('run') ? RUN_SPEED : WALK_SPEED) / Math.hypot(mx, my);
+        tx = mx * speed;
+        ty = my * speed;
+      }
+      // Плавный разгон и остановка: без них шаг ощущается как скольжение.
+      const k = Math.min(1, dt * ACCEL);
+      vx += (tx - vx) * k;
+      vy += (ty - vy) * k;
+      if (Math.hypot(vx, vy) < 1) vx = vy = 0;
+      if (vx || vy) {
+        const next = collide({ x: pos.x + vx * dt, y: pos.y + vy * dt }, colliders);
         pos = {
           x: clamp(next.x, PLAYER_R, plan.width - PLAYER_R),
           y: clamp(next.y, PLAYER_R, plan.length - PLAYER_R),
@@ -115,6 +128,7 @@ export function createWalk({ camera, domElement, plan, eyeHeight, onMove, onLock
 
     stop() {
       active = false;
+      vx = vy = 0;
       pressed.clear();
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('keyup', onKeyUp);

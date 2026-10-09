@@ -106,6 +106,41 @@ test('wallPosts: столбики в узлах, грани знают свою 
   assert.equal(inner.faces.yn, 'r1');
 });
 
+test('wallPosts: грани, закрытые стеной, не помечены', () => {
+  const posts = m.wallPosts(basePlan());
+  // Угол (0, 0): стены уходят вправо и вниз.
+  const corner = posts.find((p) => p.x0 === -12.5 && p.y0 === -12.5);
+  assert.deepEqual(corner.faces, { xn: null, xp: undefined, yn: null, yp: undefined });
+  // Узел (400, 400): открыта только верхняя грань — в гостиную.
+  const inner = posts.find((p) => p.x0 === 395 && p.y0 === 395);
+  assert.deepEqual(inner.faces, { xn: undefined, xp: undefined, yn: 'r1', yp: undefined });
+});
+
+test('trimBoxes: плинтусы, наличники, рамы и подоконники', () => {
+  const plan = basePlan();
+  const trim = m.trimBoxes(plan);
+  const of = (kind) => trim.filter((b) => b.kind === kind);
+  assert.ok(trim.every((b) => b.x1 > b.x0 && b.y1 > b.y0 && b.z1 > b.z0));
+  // Наличники: 4 двери с двух сторон и вход с одной, по три планки.
+  assert.equal(of('casing').length, (4 * 2 + 1) * 3);
+  assert.ok(of('casing').every((b) => b.z1 === 217));
+  // Окна: 4 профиля рамы и импост, подоконник только внутри.
+  assert.equal(of('frame').length, 3 * 5);
+  assert.equal(of('sill').length, 3);
+  assert.ok(of('sill').every((b) => b.z1 === 80 && b.y0 >= 0 && b.y1 <= plan.length));
+  // Плинтус высотой 8 см, внутри контура квартиры и не перекрывает дверные проёмы.
+  const base = of('baseboard');
+  assert.ok(base.length > 20);
+  assert.ok(base.every((b) => b.z0 === 0 && b.z1 === 8 && b.x0 >= 0 && b.y0 >= 0 && b.x1 <= plan.width && b.y1 <= plan.length));
+  for (const o of plan.openings.filter((d) => d.type !== 'window')) {
+    const [x0, x1, y0, y1] = o.dir === 'h' ? [o.x, o.x + o.width, o.y - 20, o.y + 20] : [o.x - 20, o.x + 20, o.y, o.y + o.width];
+    assert.ok(!base.some((b) => b.x0 < x1 && x0 < b.x1 && b.y0 < y1 && y0 < b.y1), JSON.stringify(o));
+  }
+  // Плинтус гостиной вдоль верхней стены: от угла до угла комнаты, кроме… окна он не боится.
+  const top = base.filter((b) => b.y0 === 12.5 && b.y1 === 14 && b.x1 <= 500);
+  assert.equal(top.reduce((s, b) => s + b.x1 - b.x0, 0), 495 - 12.5);
+});
+
 test('объёмы стен не перекрываются', () => {
   const plan = basePlan();
   const rects = m.wallBoxes(plan).filter((b) => b.kind === 'wall' && b.z0 === 0 || b.z1 === plan.height);
