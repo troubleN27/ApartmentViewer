@@ -1,6 +1,7 @@
 // Планировка на Canvas: комнаты, стены, проёмы, размерные линии, подсказка, точка игрока.
 import { t } from './i18n.js';
 import { buildWalls, wallPosts, splitWall, roomArea, roomAt, formatArea, PLAYER_R } from './model.js';
+import { CATALOG, MATERIALS, footprint } from './furniture.js';
 
 export const ROOM_COLORS = {
   living: '#F1E8D6',
@@ -21,6 +22,10 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
   let plan = null;
   let walls = [];
   let posts = [];
+  let furniture = [];
+  let ghost = null; // { item, ok } — предмет, который ставят или тащат
+  let selected = null;
+  let furnishMode = false;
   let hover = null;
   let player = null;
   let w = 0;
@@ -136,6 +141,80 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
     }
   }
 
+  // Предмет мебели сверху: детали каталога от нижних к верхним.
+  function drawItem(item, alpha = 1) {
+    const def = CATALOG[item.type];
+    if (!def) return;
+    ctx.save();
+    ctx.translate(px(item.x), py(item.y));
+    ctx.rotate((item.rot * Math.PI) / 180);
+    ctx.scale(scale, scale);
+    ctx.translate(-def.w / 2, -def.d / 2);
+    ctx.globalAlpha = alpha;
+    if (minimap) {
+      ctx.fillStyle = 'rgba(28, 29, 33, .22)';
+      if (!def.flat) ctx.fillRect(0, 0, def.w, def.d);
+      ctx.restore();
+      return;
+    }
+    ctx.lineWidth = 0.8 / scale;
+    ctx.strokeStyle = 'rgba(28, 29, 33, .42)';
+    for (const p of def.top) {
+      const mat = MATERIALS[p.mat];
+      ctx.fillStyle = mat.flatColor || mat.color;
+      ctx.globalAlpha = alpha * (mat.opacity ? 0.5 : 1);
+      ctx.beginPath();
+      if (p.shape === 'box') ctx.rect(p.x, p.y, p.sx, p.sy);
+      else ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    }
+    if (def.flat) {
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = GOLD;
+      ctx.strokeRect(10, 10, def.w - 20, def.d - 20);
+    }
+    ctx.restore();
+  }
+
+  function outline(item, color, dash) {
+    const fp = footprint(item);
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.setLineDash(dash);
+    ctx.strokeRect(px(fp.x0) - 2, py(fp.y0) - 2, (fp.x1 - fp.x0) * scale + 4, (fp.y1 - fp.y0) * scale + 4);
+    ctx.restore();
+  }
+
+  function drawFurniture() {
+    // Ковры — под остальной мебелью.
+    const flat = (i) => Boolean(CATALOG[i.type]?.flat);
+    for (const item of furniture) if (flat(item)) drawItem(item);
+    for (const item of furniture) if (!flat(item)) drawItem(item);
+    const chosen = selected && furniture.find((i) => i.id === selected);
+    if (chosen) outline(chosen, GOLD, [5, 4]);
+  }
+
+  function drawGhost() {
+    if (!ghost || !CATALOG[ghost.item.type]) return;
+    drawItem(ghost.item, 0.8);
+    outline(ghost.item, ghost.ok ? '#7FA38A' : '#A4553F', []);
+  }
+
+  // Подпись с подложкой — чтобы читалась поверх мебели.
+  function label(text, x, y) {
+    if (furniture.length) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255, 253, 249, .85)';
+      ctx.lineWidth = 4;
+      ctx.lineJoin = 'round';
+      ctx.strokeText(text, x, y);
+      ctx.restore();
+    }
+    ctx.fillText(text, x, y);
+  }
+
   function drawLabels() {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -153,10 +232,10 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
       }
       const fitsName = ctx.measureText(name).width <= maxW;
       ctx.fillStyle = INK;
-      if (fitsName) ctx.fillText(name, cx, cy - size * 0.65);
+      if (fitsName) label(name, cx, cy - size * 0.65);
       ctx.font = `500 ${Math.max(10, size - 1)}px ${FONT}`;
       ctx.fillStyle = MUTED;
-      if (ctx.measureText(area).width <= maxW) ctx.fillText(area, cx, fitsName ? cy + size * 0.75 : cy);
+      if (ctx.measureText(area).width <= maxW) label(area, cx, fitsName ? cy + size * 0.75 : cy);
     }
   }
 
@@ -254,16 +333,18 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
     ctx.clearRect(0, 0, w, h);
     if (!plan) return;
     drawRooms();
+    drawFurniture();
     drawWalls();
     if (!minimap) {
       drawLabels();
       drawDimensions();
     }
+    drawGhost();
     if (player) drawPlayer();
   }
 
   function onMove(e) {
-    if (!plan || e.pointerType === 'touch') return;
+    if (!plan || furnishMode || e.pointerType === 'touch') return;
     const box = canvas.getBoundingClientRect();
     const room = roomAt(plan, (e.clientX - box.left - ox) / scale, (e.clientY - box.top - oy) / scale);
     if ((room?.id ?? null) !== hover) {
@@ -304,6 +385,9 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
       posts = plan ? wallPosts(plan, walls) : [];
       hover = null;
       player = null;
+      furniture = [];
+      ghost = null;
+      selected = null;
       if (tooltip) tooltip.hidden = true;
       draw();
     },
@@ -311,6 +395,28 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
     setPlayer(next) {
       player = next;
       draw();
+    },
+    setFurniture(items) {
+      furniture = items;
+      draw();
+    },
+    setGhost(next) {
+      ghost = next;
+      draw();
+    },
+    setSelected(id) {
+      selected = id;
+      draw();
+    },
+    // В режиме обстановки подсказки по комнатам отключены.
+    setFurnishMode(on) {
+      furnishMode = on;
+      if (on) onLeave();
+    },
+    // Точка экрана → координаты плана в см.
+    toPlan(clientX, clientY) {
+      const box = canvas.getBoundingClientRect();
+      return { x: (clientX - box.left - ox) / scale, y: (clientY - box.top - oy) / scale };
     },
     draw,
     destroy() {

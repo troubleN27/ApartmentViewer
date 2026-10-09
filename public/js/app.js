@@ -4,6 +4,8 @@ import * as api from './api.js';
 import { initLang, getLang, setLang, applyI18n, onLangChange, t } from './i18n.js';
 import { createChess, DEFAULT_FILTERS, STAR_ICON } from './chess.js';
 import { createPlanView, ROOM_COLORS } from './plan2d.js';
+import { createFurnishEditor } from './furnish.js';
+import { autoFurnish, sanitizeFurniture } from './furniture.js';
 import { planArea, roomArea, roomAt, calcPrice, formatArea, formatPrice, validatePlan } from './model.js';
 
 const $ = (id) => document.getElementById(id);
@@ -18,6 +20,7 @@ const state = {
   planMessage: null, // { key } | { errors }
   filters: DEFAULT_FILTERS,
   favorites: [],
+  furniture: [], // обстановка открытой квартиры
 };
 
 /* ---------- Экраны ---------- */
@@ -75,9 +78,42 @@ async function loadApartments() {
 const planView = createPlanView($('plan-canvas'), { tooltip: $('plan-tooltip') });
 const isDev = (apt) => apt.id.startsWith('DEV-');
 
+/* ---------- Обстановка ---------- */
+
+const editor = createFurnishEditor({
+  planView,
+  canvas: $('plan-canvas'),
+  tools: $('plan-tools'),
+  catalog: $('catalog'),
+  getPlan: () => (state.planOk ? state.current.plan : null),
+  getItems: () => state.furniture,
+  onChange: setFurniture,
+  onRandom: randomFurnish,
+});
+
+// Обстановка хранится по id квартиры и показывается на плане, мини-карте и в 3D.
+function setFurniture(items) {
+  if (!state.planOk) return;
+  state.furniture = items;
+  const all = storage.get('furniture', {});
+  if (items.length) all[state.current.id] = items;
+  else delete all[state.current.id];
+  storage.set('furniture', all);
+  planView.setFurniture(items);
+  view3d.viewer?.setFurniture(items);
+  view3d.minimap?.setFurniture(items);
+}
+
+function randomFurnish() {
+  if (!state.planOk) return;
+  setFurniture(autoFurnish(state.current.plan, 1 + Math.floor(Math.random() * 1e9)));
+  editor.refresh();
+}
+
 async function openApartment(id) {
   storage.set('selectedId', id);
   showView('plan');
+  editor.setEnabled(false);
   state.current = null;
   state.planOk = false;
   state.planMessage = { key: 'plan.loading' };
@@ -112,6 +148,8 @@ function renderApartment() {
     box.textContent = t(msg.key);
   }
   planView.setPlan(state.planOk ? state.current.plan : null);
+  state.furniture = state.planOk ? sanitizeFurniture(state.current.plan, storage.get('furniture', {})[state.current.id]) : [];
+  editor.refresh();
   renderCard();
 }
 
@@ -229,10 +267,12 @@ async function open3d() {
   const { plan } = state.current;
   view3d.minimap = createPlanView($('minimap-canvas'), { minimap: true });
   view3d.minimap.setPlan(plan);
+  view3d.minimap.setFurniture(state.furniture);
   view3d.viewer = createViewer({
     container: $('view3d-canvas'),
     plan,
     finish: storage.get('finish', 'finish'),
+    furniture: state.furniture,
     labelOf: (room) => [t(`room.${room.type}`), `${formatArea(roomArea(room))} ${t('unit.m2')}`],
     onPlayer(player) {
       view3d.minimap?.setPlayer(player);
@@ -322,6 +362,12 @@ document.addEventListener('fullscreenchange', () => {
 });
 
 document.addEventListener('keydown', (e) => {
+  // Клавиши редактора обстановки — только на экране планировки.
+  const busy = e.target.closest?.('input, textarea') || document.querySelector('.modal:not([hidden])') || view3d.open;
+  if (!busy && state.view === 'plan' && editor.handleKey(e)) {
+    e.preventDefault();
+    return;
+  }
   if (e.key !== 'Escape') return;
   if (closeModals()) return;
   if (!view3d.open) return;
@@ -428,6 +474,7 @@ const actions = {
   'close-3d': close3d,
   fullscreen: toggleFullscreen,
   'open-lead': openLead,
+  'furnish-random': randomFurnish,
 };
 
 document.addEventListener('click', (e) => {

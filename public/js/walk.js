@@ -20,9 +20,10 @@ const KEYS = {
   ShiftRight: 'run',
 };
 
-export function createWalk({ camera, domElement, plan, eyeHeight, onMove, onLock, onExit }) {
+export function createWalk({ camera, domElement, plan, eyeHeight, obstacles = [], onMove, onLock, onExit }) {
   const controls = new PointerLockControls(camera, domElement);
-  const colliders = buildColliders(plan);
+  const walls = buildColliders(plan);
+  let colliders = walls.concat(obstacles); // стены и мебель
   const pressed = new Set();
   const dir = new THREE.Vector3();
   const start = startPosition(plan);
@@ -138,6 +139,13 @@ export function createWalk({ camera, domElement, plan, eyeHeight, onMove, onLock
       controls.removeEventListener('unlock', onUnlocked);
       if (controls.isLocked) controls.unlock();
       controls.dispose();
+    },
+
+    // Мебель переставили: обновляем препятствия и выталкиваем игрока, если он оказался внутри.
+    setObstacles(list) {
+      colliders = walls.concat(list);
+      pos = collide(pos, colliders);
+      if (active) place();
     },
 
     getPosition: () => ({ ...pos }),

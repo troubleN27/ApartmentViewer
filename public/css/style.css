@@ -313,6 +313,55 @@ svg { width: 20px; height: 20px; flex: none; }
 }
 .back-link:hover { color: var(--ink); }
 .plan-layout { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: clamp(20px, 3vw, 40px); align-items: start; }
+.plan-main { min-width: 0; }
+.plan-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+.plan-tools .chip svg { width: 16px; height: 16px; fill: none; }
+.plan-tools .chip.is-active svg { fill: none; color: var(--gold); }
+.plan-tools-count { margin-left: auto; font-size: 12px; color: var(--muted); }
+.catalog {
+  margin-bottom: 12px;
+  padding: 14px 16px 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  animation: rise 300ms cubic-bezier(.2, .7, .2, 1) both;
+}
+.catalog-tabs { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
+.catalog-tab {
+  padding: 4px 0 10px;
+  margin-bottom: -1px;
+  border-bottom: 1px solid transparent;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color var(--ease), border-color var(--ease);
+}
+.catalog-tab:hover { color: var(--ink); }
+.catalog-tab.is-active { color: var(--ink); border-color: var(--gold); }
+.catalog-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.catalog-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  transition: border-color var(--ease), background var(--ease), color var(--ease), transform var(--ease);
+}
+.catalog-item small { font-size: 10.5px; font-weight: 400; color: var(--muted); }
+.catalog-item:hover { border-color: var(--gold); transform: translateY(-1px); }
+.catalog-item.is-active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.catalog-item.is-active small { color: rgba(247, 244, 238, .64); }
+.catalog-hint { margin-top: 12px; font-size: 12px; color: var(--muted); }
+.catalog-hint.is-error { color: var(--error); }
+
 .plan-stage {
   position: relative;
   height: min(72vh, 700px);

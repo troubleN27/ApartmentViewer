@@ -4,45 +4,15 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { wallBoxes, trimBoxes } from './model.js';
 import { createWalk } from './walk.js';
+import { furnitureColliders } from './furniture.js';
+import { buildFurniture, createFurnitureAssets } from './furniture3d.js';
+import { seeded, grain, blotches } from './textures.js';
 
 const S = 0.01; // см → м
 // Вертикальный угол обзора в прогулке. Шире — и двери с окнами выглядят мелкими,
 // а движение слишком быстрым: квартира кажется игрушечной.
 const WALK_FOV = 60;
 const TEX = 512; // сторона текстуры, px
-
-// Детерминированный генератор для рисунка текстур.
-function seeded(seed) {
-  return () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-}
-
-// Мелкое зерно: светлые и тёмные точки.
-function grain(ctx, n, count, alpha, rnd = seeded(7)) {
-  for (let i = 0; i < count; i++) {
-    ctx.fillStyle = `rgba(${rnd() < 0.5 ? '0,0,0' : '255,255,255'},${rnd() * alpha})`;
-    ctx.fillRect(rnd() * n, rnd() * n, 1 + rnd() * 2, 1 + rnd() * 2);
-  }
-}
-
-// Крупные мягкие пятна — неоднородность тона.
-function blotches(ctx, n, count, alpha, rnd = seeded(11)) {
-  for (let i = 0; i < count; i++) {
-    const x = rnd() * n;
-    const y = rnd() * n;
-    const r = n * (0.08 + rnd() * 0.18);
-    const dark = rnd() < 0.5;
-    // Рисуем с переносом через край, чтобы тайл стыковался без шва.
-    for (const dx of [-n, 0, n]) {
-      for (const dy of [-n, 0, n]) {
-        const g = ctx.createRadialGradient(x + dx, y + dy, 0, x + dx, y + dy, r);
-        g.addColorStop(0, `rgba(${dark ? '0,0,0' : '255,255,255'},${alpha})`);
-        g.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = g;
-        ctx.fillRect(x + dx - r, y + dy - r, r * 2, r * 2);
-      }
-    }
-  }
-}
 
 // Процедурные текстуры. size — сторона тайла в метрах.
 const TEXTURES = {
@@ -376,7 +346,7 @@ export function buildApartment(plan, finish, textures) {
   return group;
 }
 
-export function createViewer({ container, plan, finish, labelOf, onPlayer, onModeChange, onLock }) {
+export function createViewer({ container, plan, finish, furniture = [], labelOf, onPlayer, onModeChange, onLock }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   container.appendChild(renderer.domElement);
@@ -418,6 +388,9 @@ export function createViewer({ container, plan, finish, labelOf, onPlayer, onMod
   scene.add(sun, sun.target);
 
   const textures = createTextures();
+  const furnitureAssets = createFurnitureAssets();
+  let furnitureItems = [];
+  let furnitureGroup = null;
   let apartment = null;
   let ceiling = null;
   const labels = new THREE.Group();
@@ -464,6 +437,17 @@ export function createViewer({ container, plan, finish, labelOf, onPlayer, onMod
     scene.add(apartment);
   }
 
+  function setFurniture(items) {
+    furnitureItems = items;
+    if (furnitureGroup) {
+      scene.remove(furnitureGroup);
+      furnitureGroup.userData.dispose();
+    }
+    furnitureGroup = buildFurniture(items, furnitureAssets);
+    scene.add(furnitureGroup);
+    walk?.setObstacles(furnitureColliders(items));
+  }
+
   function resize() {
     const w = container.clientWidth || 1;
     const h = container.clientHeight || 1;
@@ -487,6 +471,7 @@ export function createViewer({ container, plan, finish, labelOf, onPlayer, onMod
         domElement: renderer.domElement,
         plan,
         eyeHeight,
+        obstacles: furnitureColliders(furnitureItems),
         onMove: onPlayer,
         onLock,
         onExit: () => setMode('orbit'),
@@ -521,6 +506,7 @@ export function createViewer({ container, plan, finish, labelOf, onPlayer, onMod
   }
 
   setFinish(finish);
+  setFurniture(furniture);
   refreshLabels();
   resize();
   // На узком экране отодвигаем камеру, чтобы квартира помещалась целиком.
@@ -535,6 +521,7 @@ export function createViewer({ container, plan, finish, labelOf, onPlayer, onMod
 
   return {
     setFinish,
+    setFurniture,
     setMode,
     refreshLabels,
     resize,
@@ -551,6 +538,8 @@ export function createViewer({ container, plan, finish, labelOf, onPlayer, onMod
       window.removeEventListener('resize', resize);
       controls.dispose();
       apartment.userData.dispose();
+      furnitureGroup.userData.dispose();
+      furnitureAssets.dispose();
       labels.children.forEach((s) => {
         s.material.map.dispose();
         s.material.dispose();
