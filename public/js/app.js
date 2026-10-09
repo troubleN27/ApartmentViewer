@@ -507,6 +507,21 @@ document.addEventListener('click', (e) => {
   if (el && !el.disabled && actions[el.dataset.action]) actions[el.dataset.action](el);
 });
 
+/* ---------- Изображения ---------- */
+
+// Мок-фотографии грузятся с внешнего адреса. Если он недоступен (нет интернета),
+// подставляется локальный рендер из public/img.
+function useFallback(img) {
+  const fallback = img.dataset?.fallback;
+  if (!fallback) return;
+  delete img.dataset.fallback;
+  img.src = fallback;
+}
+document.addEventListener('error', (e) => e.target.tagName === 'IMG' && useFallback(e.target), true);
+document.querySelectorAll('img[data-fallback]').forEach((img) => {
+  if (img.complete && img.naturalWidth === 0) useFallback(img); // ошибка случилась до загрузки скрипта
+});
+
 /* ---------- Запуск ---------- */
 
 storage.init();
