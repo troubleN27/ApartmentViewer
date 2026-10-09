@@ -164,6 +164,7 @@ npm run db:seed  # таблицы и квартиры в Neon (нужен DATABA
 - Таблицы: `apartments (id, floor, number, rooms, price_per_m2, status, plan jsonb)` и `leads (id, apartment_id → apartments, name, phone, created_at)`. Схема — константа `SCHEMA` в `lib/store.js`, применяется скриптом `npm run db:seed`.
 - Все значения в SQL передаются параметрами (tagged template драйвера), строки запросов не склеиваются.
 - На Vercel файловая система только для чтения: ничего не писать на диск в обработчиках.
+- Регионы: функция Vercel — `fra1` (задано в `vercel.json`), база Neon — `aws-eu-central-1`. Оба во Франкфурте, чтобы запрос к базе был быстрым; при переносе менять вместе.
 - `/vendor/three` и `/vendor/fonts`: локально Express раздаёт их из `node_modules`, на Vercel те же адреса обслуживает `public/vendor`, который создаёт `npm run build` (папка в `.gitignore`). Новый файл из `node_modules`, нужный фронту, надо добавить в `scripts/build.js`.
 - Секреты — только в `.env` (в `.gitignore`) и в переменных окружения Vercel.
 
