@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { wallBoxes, trimBoxes } from './model.js';
 import { createWalk } from './walk.js';
-import { furnitureColliders } from './furniture.js';
+import { furnitureColliders, CATALOG } from './furniture.js';
 import { buildFurniture, createFurnitureAssets } from './furniture3d.js';
 import { seeded, grain, blotches } from './textures.js';
 
@@ -448,6 +448,105 @@ export function createViewer({ container, plan, finish, furniture = [], labelOf,
     walk?.setObstacles(furnitureColliders(items));
   }
 
+  /* ----- Расстановка мебели прямо в сцене (вид для редактора из furnish.js) ----- */
+
+  const raycaster = new THREE.Raycaster();
+  const pointerNdc = new THREE.Vector2();
+  const floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+  const floorPoint = new THREE.Vector3();
+  const tint = {
+    ok: new THREE.MeshBasicMaterial({ color: 0x7fa38a, transparent: true, opacity: 0.28, depthWrite: false }),
+    bad: new THREE.MeshBasicMaterial({ color: 0xa4553f, transparent: true, opacity: 0.38, depthWrite: false }),
+  };
+  const selectionMaterial = new THREE.LineBasicMaterial({ color: 0xb8955a });
+  let ghost = null; // { type, group, box }
+  let selection = null;
+
+  function aim(clientX, clientY) {
+    const box = renderer.domElement.getBoundingClientRect();
+    pointerNdc.set(((clientX - box.left) / box.width) * 2 - 1, -((clientY - box.top) / box.height) * 2 + 1);
+    camera.updateMatrixWorld(); // кадр мог ещё не отрисоваться после движения камеры
+    raycaster.setFromCamera(pointerNdc, camera);
+  }
+
+  // Габаритная коробка предмета с небольшим запасом — для призрака и рамки выбора.
+  function boundsGeometry(def) {
+    const geometry = new THREE.BoxGeometry((def.w + 4) * S, (def.h + 2) * S, (def.d + 4) * S);
+    geometry.translate(0, ((def.h + 2) * S) / 2, 0);
+    return geometry;
+  }
+
+  function place(object, item) {
+    object.position.set(item.x * S, 0, item.y * S);
+    object.rotation.y = (-item.rot * Math.PI) / 180;
+  }
+
+  function dropGhost() {
+    if (!ghost) return;
+    scene.remove(ghost.group);
+    ghost.group.userData.dispose();
+    ghost.box.geometry.dispose();
+    ghost = null;
+  }
+
+  const editing = {
+    // Точка экрана → точка на полу в координатах плана (см).
+    toPlan(clientX, clientY) {
+      aim(clientX, clientY);
+      const hit = raycaster.ray.intersectPlane(floorPlane, floorPoint);
+      return hit ? { x: hit.x / S, y: hit.z / S } : { x: -1e6, y: -1e6 };
+    },
+    // id предмета под курсором либо null.
+    pick(clientX, clientY) {
+      if (!furnitureGroup) return null;
+      aim(clientX, clientY);
+      furnitureGroup.updateMatrixWorld(true); // только что поставленный предмет ещё не был в кадре
+      for (const hit of raycaster.intersectObjects(furnitureGroup.children, true)) {
+        if (hit.object.userData.shadow) continue;
+        let node = hit.object;
+        while (node && node.userData.id === undefined) node = node.parent;
+        if (node) return node.userData.id;
+      }
+      return null;
+    },
+    setFurniture,
+    // Призрак — предмет, который ставят или тащат: модель в зелёной или красной оболочке.
+    setGhost(next) {
+      const def = next && CATALOG[next.item.type];
+      if (!def) return dropGhost();
+      if (!ghost || ghost.type !== def.type) {
+        dropGhost();
+        const group = buildFurniture([{ id: 'ghost', type: def.type, x: 0, y: 0, rot: 0 }], furnitureAssets);
+        const box = new THREE.Mesh(boundsGeometry(def), tint.ok);
+        box.renderOrder = 3;
+        group.add(box);
+        scene.add(group);
+        ghost = { type: def.type, group, box };
+      }
+      ghost.box.material = next.ok ? tint.ok : tint.bad;
+      place(ghost.group, next.item);
+    },
+    setSelected(id) {
+      if (selection) {
+        scene.remove(selection);
+        selection.geometry.dispose();
+        selection = null;
+      }
+      const item = id && furnitureItems.find((i) => i.id === id);
+      if (!item || !CATALOG[item.type]) return;
+      const bounds = boundsGeometry(CATALOG[item.type]);
+      selection = new THREE.LineSegments(new THREE.EdgesGeometry(bounds), selectionMaterial);
+      bounds.dispose();
+      place(selection, item);
+      scene.add(selection);
+    },
+    setFurnishMode() {},
+    // Пока ставим или тащим предмет, камера не должна вращаться.
+    lockCamera(on) {
+      controls.enabled = !on && mode === 'orbit';
+    },
+  };
+
   function resize() {
     const w = container.clientWidth || 1;
     const h = container.clientHeight || 1;
@@ -458,6 +557,8 @@ export function createViewer({ container, plan, finish, furniture = [], labelOf,
 
   function setMode(next, { eyeHeight } = {}) {
     if (next === mode || disposed) return;
+    editing.setGhost(null);
+    editing.setSelected(null);
     if (next === 'walk') {
       if (!eyeHeight) return; // без роста прогулка не запускается
       orbitState.position.copy(camera.position);
@@ -522,6 +623,8 @@ export function createViewer({ container, plan, finish, furniture = [], labelOf,
   return {
     setFinish,
     setFurniture,
+    editing,
+    domElement: renderer.domElement,
     setMode,
     refreshLabels,
     resize,
@@ -538,6 +641,11 @@ export function createViewer({ container, plan, finish, furniture = [], labelOf,
       window.removeEventListener('resize', resize);
       controls.dispose();
       apartment.userData.dispose();
+      editing.setGhost(null);
+      editing.setSelected(null);
+      tint.ok.dispose();
+      tint.bad.dispose();
+      selectionMaterial.dispose();
       furnitureGroup.userData.dispose();
       furnitureAssets.dispose();
       labels.children.forEach((s) => {

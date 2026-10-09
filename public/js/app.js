@@ -102,6 +102,8 @@ function setFurniture(items) {
   planView.setFurniture(items);
   view3d.viewer?.setFurniture(items);
   view3d.minimap?.setFurniture(items);
+  editor.refresh();
+  view3d.editor?.refresh();
 }
 
 function randomFurnish() {
@@ -230,6 +232,7 @@ const view3d = {
   keepOnFsExit: false, // выход из полноэкранного режима не должен закрывать сцену
   room: null,
   locked: false,
+  editor: null, // редактор обстановки в 3D
 };
 
 function updateHud() {
@@ -293,11 +296,27 @@ async function open3d() {
       if (mode === 'walk') view3d.minimap?.draw();
     },
   });
+  // Тот же редактор, что и на плане, но поверх 3D-сцены.
+  view3d.editor = createFurnishEditor({
+    planView: view3d.viewer.editing,
+    canvas: view3d.viewer.domElement,
+    tools: $('hud-tools'),
+    catalog: $('hud-catalog'),
+    getPlan: () => plan,
+    getItems: () => state.furniture,
+    onChange: setFurniture,
+    onRandom: randomFurnish,
+    hintKey: 'furn.hint3d',
+    capture: true,
+  });
+  view3d.editor.refresh();
 }
 
 function close3d() {
   if (!view3d.open) return;
   view3d.open = false;
+  view3d.editor?.destroy();
+  view3d.editor = null;
   view3d.viewer?.dispose();
   view3d.viewer = null;
   view3d.minimap?.destroy();
@@ -322,6 +341,7 @@ function toggleFullscreen() {
 function setMode(mode) {
   if (!view3d.viewer || mode === view3d.mode) return;
   if (mode === 'orbit') return view3d.viewer.setMode('orbit');
+  view3d.editor?.setEnabled(false);
   // Прогулка не запускается без роста.
   $('height-input').value = storage.get('userHeight') ?? '';
   $('height-error').hidden = true;
@@ -362,11 +382,16 @@ document.addEventListener('fullscreenchange', () => {
 });
 
 document.addEventListener('keydown', (e) => {
-  // Клавиши редактора обстановки — только на экране планировки.
-  const busy = e.target.closest?.('input, textarea') || document.querySelector('.modal:not([hidden])') || view3d.open;
-  if (!busy && state.view === 'plan' && editor.handleKey(e)) {
-    e.preventDefault();
-    return;
+  // Клавиши редактора обстановки: на плане или в 3D-облёте.
+  const busy = e.target.closest?.('input, textarea') || document.querySelector('.modal:not([hidden])');
+  const active = view3d.open ? view3d.mode === 'orbit' && view3d.editor : state.view === 'plan' && editor;
+  if (!busy && active) {
+    if (active.handleKey(e)) {
+      e.preventDefault();
+      return;
+    }
+    // Esc в 3D сначала выходит из режима обстановки и только потом закрывает сцену.
+    if (e.key === 'Escape' && view3d.open && active.isEnabled()) return active.setEnabled(false);
   }
   if (e.key !== 'Escape') return;
   if (closeModals()) return;
@@ -494,6 +519,7 @@ onLangChange(() => {
   renderApartment();
   updateHud();
   view3d.viewer?.refreshLabels();
+  view3d.editor?.refresh();
 });
 
 state.filters = { ...DEFAULT_FILTERS, ...storage.get('filters', {}) };

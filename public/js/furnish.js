@@ -1,4 +1,7 @@
-// Редактор обстановки на 2D-плане: каталог, установка, перетаскивание, поворот, удаление.
+// Редактор обстановки: каталог, установка, перетаскивание, поворот, удаление.
+// Работает поверх «вида» — 2D-плана (plan2d.js) или 3D-сцены (scene3d.js). Вид умеет:
+// toPlan(clientX, clientY), setFurniture, setGhost, setSelected, setFurnishMode,
+// а в 3D ещё pick(clientX, clientY) → id предмета под курсором и lockCamera(on).
 import { t } from './i18n.js';
 import { CATALOG, GROUPS, canPlace, footprint, roomInterior } from './furniture.js';
 import { roomAt } from './model.js';
@@ -11,7 +14,18 @@ const ICONS = {
 };
 const SNAP = 12; // на таком расстоянии предмет прилипает к стене, см
 
-export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan, getItems, onChange, onRandom }) {
+export function createFurnishEditor({
+  planView,
+  canvas,
+  tools,
+  catalog,
+  getPlan,
+  getItems,
+  onChange,
+  onRandom,
+  hintKey = 'furn.hint',
+  capture = false, // в 3D слушаем события раньше OrbitControls
+}) {
   let enabled = false;
   let group = GROUPS[0];
   let pending = null; // { type, rot } — предмет из каталога, который сейчас ставим
@@ -43,7 +57,9 @@ export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan,
     return next;
   }
 
-  function hitTest(point) {
+  function hitTest(point, e) {
+    // В 3D предмет выбирается лучом — по тому, что видно под курсором.
+    if (planView.pick) return byId(planView.pick(e.clientX, e.clientY)) || null;
     const inside = (i) => {
       const fp = footprint(i);
       return point.x >= fp.x0 && point.x <= fp.x1 && point.y >= fp.y0 && point.y <= fp.y1;
@@ -83,7 +99,7 @@ export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan,
             `<button class="catalog-item${pending?.type === def.type ? ' is-active' : ''}" data-type="${def.type}"><span>${t(`furn.${def.type}`)}</span><small>${def.w} × ${def.d}</small></button>`,
         )
         .join('')}</div>
-      <p class="catalog-hint${error ? ' is-error' : ''}">${t(error ? `furn.err.${error}` : pending ? 'furn.hintPlace' : 'furn.hint')}</p>`;
+      <p class="catalog-hint${error ? ' is-error' : ''}">${t(error ? `furn.err.${error}` : pending ? 'furn.hintPlace' : hintKey)}</p>`;
   }
 
   function sync() {
@@ -91,7 +107,7 @@ export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan,
     planView.setFurniture(drag ? items().filter((i) => i.id !== drag.item.id) : items());
     planView.setSelected(enabled && !drag ? selected : null);
     canvas.style.cursor = !enabled ? '' : pending ? 'copy' : drag ? 'grabbing' : 'default';
-    canvas.style.touchAction = enabled ? 'none' : '';
+    if (!planView.pick) canvas.style.touchAction = enabled ? 'none' : '';
   }
 
   function setError(reason) {
@@ -133,6 +149,7 @@ export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan,
     const point = planView.toPlan(e.clientX, e.clientY);
     lastPoint = point;
     if (pending) {
+      planView.lockCamera?.(true);
       const candidate = pendingAt(point);
       if (!showGhost(candidate)) return;
       const item = { ...candidate, id: nextId() };
@@ -142,9 +159,10 @@ export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan,
       commit([...items(), item]);
       return;
     }
-    const hit = hitTest(point);
+    const hit = hitTest(point, e);
     selected = hit?.id ?? null;
     if (hit) {
+      planView.lockCamera?.(true);
       drag = { item: hit, dx: point.x - hit.x, dy: point.y - hit.y, candidate: hit, ok: true };
       try {
         canvas.setPointerCapture(e.pointerId);
@@ -159,6 +177,7 @@ export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan,
   }
 
   function onPointerUp() {
+    planView.lockCamera?.(false);
     if (!drag) return;
     const { item, candidate, ok } = drag;
     drag = null;
@@ -217,7 +236,7 @@ export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan,
     sync();
   }
 
-  tools.addEventListener('click', (e) => {
+  function onToolsClick(e) {
     const action = e.target.closest('[data-furnish]')?.dataset.furnish;
     if (action === 'toggle') setEnabled(!enabled);
     else if (action === 'random') {
@@ -229,9 +248,9 @@ export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan,
       commit([]);
     } else if (action === 'rotate') rotate();
     else if (action === 'remove') remove();
-  });
+  }
 
-  catalog.addEventListener('click', (e) => {
+  function onCatalogClick(e) {
     const tab = e.target.closest('[data-group]');
     const entry = e.target.closest('[data-type]');
     if (tab) {
@@ -245,17 +264,30 @@ export function createFurnishEditor({ planView, canvas, tools, catalog, getPlan,
       render();
       sync();
     }
-  });
+  }
 
-  canvas.addEventListener('pointermove', onPointerMove);
-  canvas.addEventListener('pointerdown', onPointerDown);
-  canvas.addEventListener('pointerup', onPointerUp);
-  canvas.addEventListener('pointercancel', onPointerUp);
-  canvas.addEventListener('pointerleave', onPointerLeave);
+  const pointerEvents = [
+    ['pointermove', onPointerMove],
+    ['pointerdown', onPointerDown],
+    ['pointerup', onPointerUp],
+    ['pointercancel', onPointerUp],
+    ['pointerleave', onPointerLeave],
+  ];
+  pointerEvents.forEach(([type, fn]) => canvas.addEventListener(type, fn, capture));
+  tools.addEventListener('click', onToolsClick);
+  catalog.addEventListener('click', onCatalogClick);
 
   return {
     isEnabled: () => enabled,
     setEnabled,
+    destroy() {
+      pointerEvents.forEach(([type, fn]) => canvas.removeEventListener(type, fn, capture));
+      tools.removeEventListener('click', onToolsClick);
+      catalog.removeEventListener('click', onCatalogClick);
+      tools.innerHTML = '';
+      catalog.innerHTML = '';
+      catalog.hidden = true;
+    },
     // Перерисовать панели после смены языка, квартиры или списка предметов.
     refresh() {
       if (selected && !byId(selected)) selected = null;

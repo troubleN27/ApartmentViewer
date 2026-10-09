@@ -211,8 +211,10 @@ function buildItem(item, assets) {
     const shadow = new THREE.Mesh(new THREE.PlaneGeometry((def.w + 36) * S, (def.d + 36) * S), assets.shadow);
     shadow.rotation.x = -Math.PI / 2;
     shadow.position.y = 0.004;
+    shadow.userData.shadow = true; // не участвует в выборе предмета лучом
     group.add(shadow);
   }
+  group.userData.id = item.id;
   group.position.set(item.x * S, 0, item.y * S);
   group.rotation.y = (-item.rot * Math.PI) / 180;
   return group;

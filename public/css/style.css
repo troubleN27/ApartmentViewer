@@ -436,6 +436,14 @@ svg { width: 20px; height: 20px; flex: none; }
 .hud-top-right { top: 16px; right: 16px; flex-wrap: wrap; justify-content: flex-end; }
 .hud-bottom-left { bottom: 16px; left: 16px; }
 .hud-bottom { bottom: 16px; left: 50%; transform: translateX(-50%); }
+.hud-furnish { top: 72px; left: 16px; flex-direction: column; align-items: flex-start; width: min(460px, calc(100% - 32px)); pointer-events: none; }
+.hud-furnish > * { pointer-events: auto; }
+.hud-tools { margin: 0; padding: 6px; gap: 6px; }
+.hud-tools .chip { min-height: 34px; padding: 0 13px; background: rgba(255, 253, 249, .7); }
+.hud-tools .chip.is-active { background: var(--ink); }
+.hud-tools .plan-tools-count { margin: 0 8px; }
+.hud-catalog { width: 100%; margin: 0; background: rgba(255, 253, 249, .8); border-color: rgba(255, 255, 255, .5); }
+.view3d.is-walk .hud-furnish { display: none; }
 .icon-btn { display: grid; place-items: center; width: 44px; height: 44px; transition: background var(--ease), color var(--ease); }
 .icon-btn:hover { background: rgba(255, 253, 249, .9); color: var(--gold); }
 .hud-info { display: flex; flex-direction: column; justify-content: center; padding: 4px 16px; min-height: 44px; }
@@ -565,6 +573,8 @@ svg { width: 20px; height: 20px; flex: none; }
   .cell-fav { opacity: .55; top: 2px; right: 2px; }
   .plan-stage { height: clamp(280px, 82vw, 520px); min-height: 0; }
   .hud-top-right { top: 68px; left: 16px; justify-content: flex-start; }
+  .hud-furnish { top: 122px; }
+  .hud-catalog { max-height: 42vh; overflow: auto; }
   .seg button span { display: none; }
   .hud-top-left .hud-info { display: none; }
   .minimap { width: 132px; height: 108px; }
