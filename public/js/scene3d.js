@@ -41,13 +41,12 @@ function blotches(ctx, n, count, alpha, rnd = seeded(11)) {
   }
 }
 
-// Процедурные текстуры. size — сторона тайла в метрах, bump — сила рельефа.
+// Процедурные текстуры. size — сторона тайла в метрах.
 const TEXTURES = {
   // Ламинат: доски вразбежку с волокнами.
   laminate: {
     size: 1.6,
     roughness: 0.62,
-    bump: 0.6,
     paint(ctx, n) {
       const rnd = seeded(3);
       const tones = ['#C9A57A', '#C19C70', '#CDAA80', '#BC966A', '#C6A075'];
@@ -77,7 +76,6 @@ const TEXTURES = {
   tile: {
     size: 1.2,
     roughness: 0.3,
-    bump: 1,
     paint(ctx, n) {
       const rnd = seeded(5);
       const half = n / 2;
@@ -103,7 +101,6 @@ const TEXTURES = {
   wallTile: {
     size: 1.2,
     roughness: 0.22,
-    bump: 1,
     paint(ctx, n) {
       const rnd = seeded(9);
       const tw = n / 2;
@@ -127,7 +124,6 @@ const TEXTURES = {
   plaster: {
     size: 2,
     roughness: 0.95,
-    bump: 0.08,
     paint(ctx, n) {
       ctx.fillStyle = '#F5EFE3';
       ctx.fillRect(0, 0, n, n);
@@ -139,7 +135,6 @@ const TEXTURES = {
   facade: {
     size: 2.4,
     roughness: 0.9,
-    bump: 0.8,
     paint(ctx, n) {
       const rnd = seeded(13);
       const rows = 4;
@@ -164,7 +159,6 @@ const TEXTURES = {
   wood: {
     size: 1,
     roughness: 0.5,
-    bump: 0.4,
     paint(ctx, n) {
       const rnd = seeded(17);
       ctx.fillStyle = '#6F4D31';
@@ -180,7 +174,6 @@ const TEXTURES = {
   concrete: {
     size: 2.4,
     roughness: 0.95,
-    bump: 0.5,
     paint(ctx, n) {
       ctx.fillStyle = '#BDBBB5';
       ctx.fillRect(0, 0, n, n);
@@ -192,7 +185,6 @@ const TEXTURES = {
   concreteWall: {
     size: 2.4,
     roughness: 0.95,
-    bump: 0.8,
     paint(ctx, n) {
       ctx.fillStyle = '#D2CFC9';
       ctx.fillRect(0, 0, n, n);
@@ -296,14 +288,9 @@ export function buildApartment(plan, finish, textures) {
   const typeOf = new Map(plan.rooms.map((r) => [r.id, r.type]));
 
   const materials = {};
-  // Материал с текстурой; текстура служит и картой рельефа.
+  // Карту рельефа не используем: мелкое зерно в ней даёт блики, которые мерцают при движении камеры.
   const textured = (key) =>
-    (materials[key] ||= new THREE.MeshStandardMaterial({
-      map: textures[key],
-      bumpMap: textures[key],
-      bumpScale: TEXTURES[key].bump,
-      roughness: TEXTURES[key].roughness,
-    }));
+    (materials[key] ||= new THREE.MeshStandardMaterial({ map: textures[key], roughness: TEXTURES[key].roughness }));
   const cut = (materials.cut = new THREE.MeshStandardMaterial({ color: palette.cut, roughness: 1 }));
   const glass = (materials.glass = new THREE.MeshStandardMaterial({
     color: 0xbcd6de,
@@ -327,12 +314,11 @@ export function buildApartment(plan, finish, textures) {
       material = textured(palette.door);
       worldUV(geometry, cx, cy, cz, Array(6).fill(TEXTURES[palette.door].size));
     } else {
-      // Грани куска стены: к комнате a (сверху/слева), к комнате b (снизу/справа), торцы и срез.
-      const keyA = palette.wall(b.a === null ? null : typeOf.get(b.a));
-      const keyB = palette.wall(b.b === null ? null : typeOf.get(b.b));
-      const inner = palette.wall('hall');
-      // Порядок граней BoxGeometry: +x, -x, +y, -y, +z, -z.
-      const keys = b.dir === 'h' ? [inner, inner, null, inner, keyB, keyA] : [keyB, keyA, null, inner, inner, inner];
+      // Отделка грани — по комнате, к которой она обращена; торцы проёмов — как внутренняя стена.
+      const face = (id) => palette.wall(id === undefined ? 'hall' : id === null ? null : typeOf.get(id));
+      const f = b.faces;
+      // Порядок граней BoxGeometry: +x, -x, +y (срез), -y, +z, -z.
+      const keys = [face(f.xp), face(f.xn), null, face(undefined), face(f.yp), face(f.yn)];
       material = keys.map((key) => (key ? textured(key) : cut));
       worldUV(geometry, cx, cy, cz, keys.map((key) => (key ? TEXTURES[key].size : 1)));
     }

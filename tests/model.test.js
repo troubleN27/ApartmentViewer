@@ -86,10 +86,37 @@ test('wallOfOpening: проём на стене и вне её', () => {
   assert.equal(m.wallOfOpening({ type: 'door', x: 150, y: 300, width: 80, dir: 'h' }, walls), null);
 });
 
-test('wallRect удлиняет стену на полтолщины', () => {
+test('wallRect — глухая часть стены между столбиками', () => {
   const walls = m.buildWalls(basePlan());
   const top = walls.find((w) => w.dir === 'h' && w.y === 0 && w.x === 0);
-  assert.deepEqual(m.wallRect(top), { x0: -12.5, y0: -12.5, x1: 512.5, y1: 12.5 });
+  assert.deepEqual(m.wallRect(top), { x0: 12.5, y0: -12.5, x1: 495, y1: 12.5 });
+});
+
+test('wallPosts: столбики в узлах, грани знают свою комнату', () => {
+  const plan = basePlan();
+  const posts = m.wallPosts(plan);
+  assert.equal(posts.length, 12);
+  const corner = posts.find((p) => p.x0 === -12.5 && p.y0 === -12.5);
+  assert.deepEqual([corner.x1, corner.y1, corner.faces.xn, corner.faces.yn], [12.5, 12.5, null, null]);
+  // Т-образный узел на верхней стене: внутренняя стена 10 см упирается во внешнюю 25 см.
+  const tee = posts.find((p) => p.x0 === 495 && p.y0 === -12.5);
+  assert.deepEqual([tee.x1, tee.y1, tee.faces.yn], [505, 12.5, null]);
+  // Узел (400, 400): справа и снизу стены, сверху и слева — гостиная r1 и прихожая r3.
+  const inner = posts.find((p) => p.x0 === 395 && p.y0 === 395);
+  assert.equal(inner.faces.yn, 'r1');
+});
+
+test('объёмы стен не перекрываются', () => {
+  const plan = basePlan();
+  const rects = m.wallBoxes(plan).filter((b) => b.kind === 'wall' && b.z0 === 0 || b.z1 === plan.height);
+  for (let i = 0; i < rects.length; i++) {
+    for (let j = i + 1; j < rects.length; j++) {
+      const p = rects[i];
+      const q = rects[j];
+      const overlap = p.x0 < q.x1 && q.x0 < p.x1 && p.y0 < q.y1 && q.y0 < p.y1 && p.z0 < q.z1 && q.z0 < p.z1;
+      assert.equal(overlap, false, JSON.stringify([p, q]));
+    }
+  }
 });
 
 test('splitWall делит стену на глухие участки и проёмы', () => {
@@ -99,9 +126,9 @@ test('splitWall делит стену на глухие участки и про
   assert.deepEqual(
     pieces.map((p) => [p.from, p.to, p.opening?.type ?? null]),
     [
-      [-12.5, 150, null],
+      [12.5, 150, null],
       [150, 300, 'window'],
-      [300, 512.5, null],
+      [300, 495, null],
     ],
   );
 });
@@ -123,9 +150,10 @@ test('wallBoxes: перемычки, подоконная часть, стекл
   assert.deepEqual(at(100, 190, 700).map((b) => b.kind), ['wall', 'entrance']);
   assert.ok(boxes.every((b) => b.x1 > b.x0 && b.y1 > b.y0 && b.z1 > b.z0));
   // Каждый объём знает стороны своей стены — по ним 3D выбирает отделку.
-  assert.deepEqual([win[0].dir, win[0].a, win[0].b, win[0].wallKind], ['h', null, 'r1', 'outer']);
+  assert.deepEqual([win[0].faces, win[0].wallKind], [{ yn: null, yp: 'r1' }, 'outer']);
   const inner = at(150, 230, 400)[0];
-  assert.deepEqual([inner.dir, inner.a, inner.b, inner.wallKind], ['h', 'r1', 'r3', 'inner']);
+  assert.deepEqual([inner.faces, inner.wallKind], [{ yn: 'r1', yp: 'r3' }, 'inner']);
+  assert.equal(boxes.filter((b) => b.wallKind === 'post').length, 12);
 });
 
 test('roomGraph, entranceRoom и reachableRooms', () => {

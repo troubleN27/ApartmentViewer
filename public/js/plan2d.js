@@ -1,6 +1,6 @@
 // Планировка на Canvas: комнаты, стены, проёмы, размерные линии, подсказка, точка игрока.
 import { t } from './i18n.js';
-import { buildWalls, splitWall, roomArea, roomAt, formatArea, PLAYER_R } from './model.js';
+import { buildWalls, wallPosts, splitWall, roomArea, roomAt, formatArea, PLAYER_R } from './model.js';
 
 export const ROOM_COLORS = {
   living: '#F1E8D6',
@@ -20,6 +20,7 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
   const pad = minimap ? 10 : 40;
   let plan = null;
   let walls = [];
+  let posts = [];
   let hover = null;
   let player = null;
   let w = 0;
@@ -117,6 +118,8 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
   }
 
   function drawWalls() {
+    ctx.fillStyle = INK;
+    for (const p of posts) ctx.fillRect(px(p.x0), py(p.y0), (p.x1 - p.x0) * scale, (p.y1 - p.y0) * scale);
     for (const wall of walls) {
       const t2 = wall.t / 2;
       for (const { from, to, opening } of splitWall(wall, plan.openings)) {
@@ -298,6 +301,7 @@ export function createPlanView(canvas, { tooltip = null, minimap = false } = {})
     setPlan(next) {
       plan = next;
       walls = plan ? buildWalls(plan) : [];
+      posts = plan ? wallPosts(plan, walls) : [];
       hover = null;
       player = null;
       if (tooltip) tooltip.hidden = true;

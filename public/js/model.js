@@ -57,7 +57,10 @@ export function roomAt(plan, x, y) {
 
 // Стены по границам комнат. Каждый сегмент разделяет ровно одну пару (a, b):
 // a — комната сверху/слева от линии, b — снизу/справа, null — снаружи.
-// { id, dir, x, y, len, kind: 'outer'|'inner', t, a, b }
+// { id, dir, x, y, len, kind: 'outer'|'inner', t, a, b, from, to }
+// from..to — глухая часть стены вдоль линии: в узлах, где сходятся стены разных
+// направлений, стоит столбик (wallPosts), и стена укорочена на его половину.
+// Так объёмы стен нигде не перекрываются.
 export function buildWalls(plan) {
   const walls = [];
   for (const dir of ['h', 'v']) {
@@ -108,7 +111,51 @@ export function buildWalls(plan) {
       }
     }
   }
+  const nodes = wallNodes(walls);
+  for (const w of walls) {
+    const s = along(w);
+    const e = s + w.len;
+    const n0 = nodes.get(w.dir === 'h' ? `${s},${w.y}` : `${w.x},${s}`);
+    const n1 = nodes.get(w.dir === 'h' ? `${e},${w.y}` : `${w.x},${e}`);
+    w.from = s + (w.dir === 'h' ? n0.tv : n0.th) / 2;
+    w.to = e - (w.dir === 'h' ? n1.tv : n1.th) / 2;
+  }
   return walls;
+}
+
+// Узлы — концы стен. th — наибольшая толщина горизонтальных стен в узле, tv — вертикальных.
+function wallNodes(walls) {
+  const nodes = new Map();
+  for (const w of walls) {
+    const e = along(w) + w.len;
+    for (const [x, y] of [[w.x, w.y], w.dir === 'h' ? [e, w.y] : [w.x, e]]) {
+      const key = `${x},${y}`;
+      if (!nodes.has(key)) nodes.set(key, { x, y, th: 0, tv: 0 });
+      const node = nodes.get(key);
+      if (w.dir === 'h') node.th = Math.max(node.th, w.t);
+      else node.tv = Math.max(node.tv, w.t);
+    }
+  }
+  return nodes;
+}
+
+// Столбики в узлах, где сходятся горизонтальные и вертикальные стены.
+// { x0, y0, x1, y1, faces: { xn, xp, yn, yp } } — faces: id комнаты (или null — улица),
+// к которой обращена грань с этой стороны (xn — в сторону −X и т. д.).
+export function wallPosts(plan, walls = buildWalls(plan)) {
+  const side = (x, y) => roomAt(plan, x, y)?.id ?? null;
+  const posts = [];
+  for (const { x, y, th, tv } of wallNodes(walls).values()) {
+    if (!th || !tv) continue;
+    posts.push({
+      x0: x - tv / 2,
+      y0: y - th / 2,
+      x1: x + tv / 2,
+      y1: y + th / 2,
+      faces: { xn: side(x - tv, y), xp: side(x + tv, y), yn: side(x, y - th), yp: side(x, y + th) },
+    });
+  }
+  return posts;
 }
 
 // Стена, на которой целиком лежит проём, либо null.
@@ -132,10 +179,9 @@ function pieceRect(wall, from, to, t = wall.t) {
     : { x0: c - t / 2, y0: from, x1: c + t / 2, y1: to };
 }
 
-// Прямоугольник стены в плане. Концы удлинены на полтолщины, чтобы закрыть углы.
+// Прямоугольник глухой части стены в плане (между столбиками в узлах).
 export function wallRect(wall) {
-  const s = along(wall);
-  return pieceRect(wall, s - wall.t / 2, s + wall.len + wall.t / 2);
+  return pieceRect(wall, wall.from, wall.to);
 }
 
 // Делит стену на куски вдоль линии: глухие участки и проёмы.
@@ -144,9 +190,9 @@ export function splitWall(wall, openings) {
   const own = openings
     .filter((o) => wallOfOpening(o, [wall]))
     .sort((p, q) => along(p) - along(q));
-  const end = along(wall) + wall.len + wall.t / 2;
+  const end = wall.to;
   const pieces = [];
-  let cursor = along(wall) - wall.t / 2;
+  let cursor = wall.from;
   for (const o of own) {
     const s = along(o);
     if (s > cursor) pieces.push({ from: cursor, to: s, opening: null });
@@ -157,15 +203,19 @@ export function splitWall(wall, openings) {
   return pieces;
 }
 
-// Объёмы для 3D: { x0, y0, x1, y1 (план), z0, z1 (высота), kind, wallKind, dir, a, b }.
-// dir, a, b — как у стены: по ним 3D выбирает отделку каждой стороны.
+// Объёмы для 3D: { x0, y0, x1, y1 (план), z0, z1 (высота), kind, wallKind, faces }.
+// faces — к какой комнате обращена каждая сторона (см. wallPosts): по ним 3D выбирает отделку.
+// Объёмы не перекрываются — иначе совпадающие грани мерцают.
 // kind: 'wall' — стена, перемычка или подоконная часть; 'glass' — стекло; 'entrance' — полотно входной двери.
 export function wallBoxes(plan) {
   const boxes = [];
   const h = plan.height;
-  for (const wall of buildWalls(plan)) {
+  const walls = buildWalls(plan);
+  for (const post of wallPosts(plan, walls)) boxes.push({ ...post, z0: 0, z1: h, kind: 'wall', wallKind: 'post' });
+  for (const wall of walls) {
+    const faces = wall.dir === 'h' ? { yn: wall.a, yp: wall.b } : { xn: wall.a, xp: wall.b };
     const box = (from, to, z0, z1, kind = 'wall', t) => {
-      if (z1 > z0 && to > from) boxes.push({ ...pieceRect(wall, from, to, t), z0, z1, kind, wallKind: wall.kind, dir: wall.dir, a: wall.a, b: wall.b });
+      if (z1 > z0 && to > from) boxes.push({ ...pieceRect(wall, from, to, t), z0, z1, kind, wallKind: wall.kind, faces });
     };
     for (const { from, to, opening } of splitWall(wall, plan.openings)) {
       if (!opening) {
@@ -339,8 +389,9 @@ export function validatePlan(plan) {
 // Прямоугольники-препятствия: стены без дверных проёмов, в которые проходит игрок.
 // Окна и входная дверь — сплошные, поэтому квартиру покинуть нельзя.
 export function buildColliders(plan) {
-  const rects = [];
-  for (const wall of buildWalls(plan)) {
+  const walls = buildWalls(plan);
+  const rects = wallPosts(plan, walls).map(({ x0, y0, x1, y1 }) => ({ x0, y0, x1, y1 }));
+  for (const wall of walls) {
     for (const { from, to, opening } of splitWall(wall, plan.openings)) {
       const passable = opening && opening.type === 'door' && opening.width >= MIN_PASS;
       if (!passable) rects.push(pieceRect(wall, from, to));
