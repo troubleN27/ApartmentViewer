@@ -171,8 +171,6 @@ const dict = {
     'furn.washingMachine': 'Стиральная машина',
     'furn.wardrobeHall': 'Шкаф с зеркалом',
     'furn.shoeCabinet': 'Обувница',
-
-    'footer.note': 'Демонстрационный проект. Планировки и цены условные.',
   },
 
   uz: {
@@ -344,8 +342,6 @@ const dict = {
     'furn.washingMachine': 'Kir yuvish mashinasi',
     'furn.wardrobeHall': 'Oynali shkaf',
     'furn.shoeCabinet': 'Poyabzal javoni',
-
-    'footer.note': 'Namoyish loyihasi. Rejalar va narxlar shartli.',
   },
 };
 
