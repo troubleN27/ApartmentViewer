@@ -1,0 +1,6482 @@
+[
+  {
+    "id": "A-1-01",
+    "floor": 1,
+    "number": 1,
+    "rooms": 2,
+    "pricePerM2": 9700000,
+    "status": "free",
+    "plan": {
+      "width": 960,
+      "length": 690,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 550,
+          "y": 0,
+          "w": 410,
+          "l": 400
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 0,
+          "y": 400,
+          "w": 550,
+          "l": 290
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 550,
+          "y": 400,
+          "w": 410,
+          "l": 290
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 260,
+          "l": 400
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 260,
+          "y": 0,
+          "w": 290,
+          "l": 400
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 307,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 423,
+          "y": 400,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 152,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 523,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 260,
+          "y": 232,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 960,
+          "y": 110,
+          "width": 180,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 175,
+          "y": 690,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 690,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-1-02",
+    "floor": 1,
+    "number": 2,
+    "rooms": 1,
+    "pricePerM2": 10950000,
+    "status": "free",
+    "plan": {
+      "width": 750,
+      "length": 590,
+      "height": 270,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 260,
+          "w": 420,
+          "l": 330
+        },
+        {
+          "id": "r2",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 420,
+          "l": 260
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 420,
+          "y": 0,
+          "w": 330,
+          "l": 350
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 420,
+          "y": 350,
+          "w": 330,
+          "l": 240
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 596,
+          "y": 590,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 350,
+          "width": 80,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 428,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 70,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 115,
+          "y": 590,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 150,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 750,
+          "y": 95,
+          "width": 160,
+          "dir": "v"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-1-03",
+    "floor": 1,
+    "number": 3,
+    "rooms": 3,
+    "pricePerM2": 9400000,
+    "status": "free",
+    "plan": {
+      "width": 1090,
+      "length": 810,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 660,
+          "y": 390,
+          "w": 430,
+          "l": 420
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 660,
+          "y": 0,
+          "w": 430,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "l": 420
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 360,
+          "y": 0,
+          "w": 300,
+          "l": 420
+        },
+        {
+          "id": "r5",
+          "type": "bathroom",
+          "x": 0,
+          "y": 420,
+          "w": 270,
+          "l": 390
+        },
+        {
+          "id": "r6",
+          "type": "bedroom",
+          "x": 270,
+          "y": 420,
+          "w": 390,
+          "l": 390
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 483,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 511,
+          "y": 420,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 360,
+          "y": 82,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 153,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 693,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 270,
+          "y": 510,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 810,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 1090,
+          "y": 505,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 0,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 115,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 375,
+          "y": 810,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-1-04",
+    "floor": 1,
+    "number": 4,
+    "rooms": 3,
+    "pricePerM2": 11850000,
+    "status": "free",
+    "plan": {
+      "width": 1140,
+      "length": 820,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 380,
+          "w": 480,
+          "l": 440
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 740,
+          "y": 350,
+          "w": 400,
+          "l": 470
+        },
+        {
+          "id": "r3",
+          "type": "bedroom",
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "l": 380
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 480,
+          "y": 350,
+          "w": 260,
+          "l": 470
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 480,
+          "y": 0,
+          "w": 300,
+          "l": 350
+        },
+        {
+          "id": "r6",
+          "type": "kitchen",
+          "x": 780,
+          "y": 0,
+          "w": 360,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 574,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 480,
+          "y": 43,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 780,
+          "y": 220,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 325,
+          "y": 380,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 985,
+          "y": 350,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 579,
+          "y": 350,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 820,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 500,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 1140,
+          "y": 485,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 880,
+          "y": 0,
+          "width": 160,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-1-05",
+    "floor": 1,
+    "number": 5,
+    "rooms": 1,
+    "pricePerM2": 8800000,
+    "status": "free",
+    "plan": {
+      "width": 780,
+      "length": 620,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 250,
+          "w": 400,
+          "l": 370
+        },
+        {
+          "id": "r2",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 400,
+          "l": 250
+        },
+        {
+          "id": "r3",
+          "type": "hall",
+          "x": 400,
+          "y": 0,
+          "w": 380,
+          "l": 370
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 400,
+          "y": 370,
+          "w": 380,
+          "l": 250
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 496,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 117,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 270,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 605,
+          "y": 370,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 620,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 170,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-1-06",
+    "floor": 1,
+    "number": 6,
+    "rooms": 2,
+    "pricePerM2": 11150000,
+    "status": "sold",
+    "plan": {
+      "width": 950,
+      "length": 670,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 0,
+          "w": 560,
+          "l": 320
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 560,
+          "y": 280,
+          "w": 390,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 560,
+          "y": 0,
+          "w": 390,
+          "l": 280
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 320,
+          "w": 210,
+          "l": 350
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 210,
+          "y": 320,
+          "w": 350,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 282,
+          "y": 670,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 320,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 340,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 145,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 210,
+          "y": 375,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 180,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 90,
+          "width": 140,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 670,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-2-01",
+    "floor": 2,
+    "number": 1,
+    "rooms": 2,
+    "pricePerM2": 9850000,
+    "status": "free",
+    "plan": {
+      "width": 960,
+      "length": 690,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 550,
+          "y": 0,
+          "w": 410,
+          "l": 400
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 0,
+          "y": 400,
+          "w": 550,
+          "l": 290
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 550,
+          "y": 400,
+          "w": 410,
+          "l": 290
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 260,
+          "l": 400
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 260,
+          "y": 0,
+          "w": 290,
+          "l": 400
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 307,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 423,
+          "y": 400,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 152,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 523,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 260,
+          "y": 232,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 960,
+          "y": 110,
+          "width": 180,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 175,
+          "y": 690,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 690,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-2-02",
+    "floor": 2,
+    "number": 2,
+    "rooms": 1,
+    "pricePerM2": 11100000,
+    "status": "free",
+    "plan": {
+      "width": 750,
+      "length": 590,
+      "height": 270,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 260,
+          "w": 420,
+          "l": 330
+        },
+        {
+          "id": "r2",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 420,
+          "l": 260
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 420,
+          "y": 0,
+          "w": 330,
+          "l": 350
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 420,
+          "y": 350,
+          "w": 330,
+          "l": 240
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 596,
+          "y": 590,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 350,
+          "width": 80,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 428,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 70,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 115,
+          "y": 590,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 150,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 750,
+          "y": 95,
+          "width": 160,
+          "dir": "v"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-2-03",
+    "floor": 2,
+    "number": 3,
+    "rooms": 3,
+    "pricePerM2": 9550000,
+    "status": "free",
+    "plan": {
+      "width": 1090,
+      "length": 810,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 660,
+          "y": 390,
+          "w": 430,
+          "l": 420
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 660,
+          "y": 0,
+          "w": 430,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "l": 420
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 360,
+          "y": 0,
+          "w": 300,
+          "l": 420
+        },
+        {
+          "id": "r5",
+          "type": "bathroom",
+          "x": 0,
+          "y": 420,
+          "w": 270,
+          "l": 390
+        },
+        {
+          "id": "r6",
+          "type": "bedroom",
+          "x": 270,
+          "y": 420,
+          "w": 390,
+          "l": 390
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 483,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 511,
+          "y": 420,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 360,
+          "y": 82,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 153,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 693,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 270,
+          "y": 510,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 810,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 1090,
+          "y": 505,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 0,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 115,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 375,
+          "y": 810,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-2-04",
+    "floor": 2,
+    "number": 4,
+    "rooms": 3,
+    "pricePerM2": 12000000,
+    "status": "free",
+    "plan": {
+      "width": 1140,
+      "length": 820,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 380,
+          "w": 480,
+          "l": 440
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 740,
+          "y": 350,
+          "w": 400,
+          "l": 470
+        },
+        {
+          "id": "r3",
+          "type": "bedroom",
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "l": 380
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 480,
+          "y": 350,
+          "w": 260,
+          "l": 470
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 480,
+          "y": 0,
+          "w": 300,
+          "l": 350
+        },
+        {
+          "id": "r6",
+          "type": "kitchen",
+          "x": 780,
+          "y": 0,
+          "w": 360,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 574,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 480,
+          "y": 43,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 780,
+          "y": 220,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 325,
+          "y": 380,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 985,
+          "y": 350,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 579,
+          "y": 350,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 820,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 500,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 1140,
+          "y": 485,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 880,
+          "y": 0,
+          "width": 160,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-2-05",
+    "floor": 2,
+    "number": 5,
+    "rooms": 1,
+    "pricePerM2": 8950000,
+    "status": "reserved",
+    "plan": {
+      "width": 780,
+      "length": 620,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 250,
+          "w": 400,
+          "l": 370
+        },
+        {
+          "id": "r2",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 400,
+          "l": 250
+        },
+        {
+          "id": "r3",
+          "type": "hall",
+          "x": 400,
+          "y": 0,
+          "w": 380,
+          "l": 370
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 400,
+          "y": 370,
+          "w": 380,
+          "l": 250
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 496,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 117,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 270,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 605,
+          "y": 370,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 620,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 170,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-2-06",
+    "floor": 2,
+    "number": 6,
+    "rooms": 2,
+    "pricePerM2": 11300000,
+    "status": "sold",
+    "plan": {
+      "width": 950,
+      "length": 670,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 0,
+          "w": 560,
+          "l": 320
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 560,
+          "y": 280,
+          "w": 390,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 560,
+          "y": 0,
+          "w": 390,
+          "l": 280
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 320,
+          "w": 210,
+          "l": 350
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 210,
+          "y": 320,
+          "w": 350,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 282,
+          "y": 670,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 320,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 340,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 145,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 210,
+          "y": 375,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 180,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 90,
+          "width": 140,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 670,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-3-01",
+    "floor": 3,
+    "number": 1,
+    "rooms": 2,
+    "pricePerM2": 10000000,
+    "status": "sold",
+    "plan": {
+      "width": 960,
+      "length": 690,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 550,
+          "y": 0,
+          "w": 410,
+          "l": 400
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 0,
+          "y": 400,
+          "w": 550,
+          "l": 290
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 550,
+          "y": 400,
+          "w": 410,
+          "l": 290
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 260,
+          "l": 400
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 260,
+          "y": 0,
+          "w": 290,
+          "l": 400
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 307,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 423,
+          "y": 400,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 152,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 523,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 260,
+          "y": 232,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 960,
+          "y": 110,
+          "width": 180,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 175,
+          "y": 690,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 690,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-3-02",
+    "floor": 3,
+    "number": 2,
+    "rooms": 1,
+    "pricePerM2": 11250000,
+    "status": "reserved",
+    "plan": {
+      "width": 750,
+      "length": 590,
+      "height": 270,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 260,
+          "w": 420,
+          "l": 330
+        },
+        {
+          "id": "r2",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 420,
+          "l": 260
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 420,
+          "y": 0,
+          "w": 330,
+          "l": 350
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 420,
+          "y": 350,
+          "w": 330,
+          "l": 240
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 596,
+          "y": 590,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 350,
+          "width": 80,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 428,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 70,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 115,
+          "y": 590,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 150,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 750,
+          "y": 95,
+          "width": 160,
+          "dir": "v"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-3-03",
+    "floor": 3,
+    "number": 3,
+    "rooms": 3,
+    "pricePerM2": 9700000,
+    "status": "free",
+    "plan": {
+      "width": 1090,
+      "length": 810,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 660,
+          "y": 390,
+          "w": 430,
+          "l": 420
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 660,
+          "y": 0,
+          "w": 430,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "l": 420
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 360,
+          "y": 0,
+          "w": 300,
+          "l": 420
+        },
+        {
+          "id": "r5",
+          "type": "bathroom",
+          "x": 0,
+          "y": 420,
+          "w": 270,
+          "l": 390
+        },
+        {
+          "id": "r6",
+          "type": "bedroom",
+          "x": 270,
+          "y": 420,
+          "w": 390,
+          "l": 390
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 483,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 511,
+          "y": 420,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 360,
+          "y": 82,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 153,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 693,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 270,
+          "y": 510,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 810,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 1090,
+          "y": 505,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 0,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 115,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 375,
+          "y": 810,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-3-04",
+    "floor": 3,
+    "number": 4,
+    "rooms": 3,
+    "pricePerM2": 12150000,
+    "status": "free",
+    "plan": {
+      "width": 1140,
+      "length": 820,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 380,
+          "w": 480,
+          "l": 440
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 740,
+          "y": 350,
+          "w": 400,
+          "l": 470
+        },
+        {
+          "id": "r3",
+          "type": "bedroom",
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "l": 380
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 480,
+          "y": 350,
+          "w": 260,
+          "l": 470
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 480,
+          "y": 0,
+          "w": 300,
+          "l": 350
+        },
+        {
+          "id": "r6",
+          "type": "kitchen",
+          "x": 780,
+          "y": 0,
+          "w": 360,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 574,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 480,
+          "y": 43,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 780,
+          "y": 220,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 325,
+          "y": 380,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 985,
+          "y": 350,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 579,
+          "y": 350,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 820,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 500,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 1140,
+          "y": 485,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 880,
+          "y": 0,
+          "width": 160,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-3-05",
+    "floor": 3,
+    "number": 5,
+    "rooms": 1,
+    "pricePerM2": 9100000,
+    "status": "free",
+    "plan": {
+      "width": 780,
+      "length": 620,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 250,
+          "w": 400,
+          "l": 370
+        },
+        {
+          "id": "r2",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 400,
+          "l": 250
+        },
+        {
+          "id": "r3",
+          "type": "hall",
+          "x": 400,
+          "y": 0,
+          "w": 380,
+          "l": 370
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 400,
+          "y": 370,
+          "w": 380,
+          "l": 250
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 496,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 117,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 270,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 605,
+          "y": 370,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 620,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 170,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-3-06",
+    "floor": 3,
+    "number": 6,
+    "rooms": 2,
+    "pricePerM2": 11450000,
+    "status": "free",
+    "plan": {
+      "width": 950,
+      "length": 670,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 0,
+          "w": 560,
+          "l": 320
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 560,
+          "y": 280,
+          "w": 390,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 560,
+          "y": 0,
+          "w": 390,
+          "l": 280
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 320,
+          "w": 210,
+          "l": 350
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 210,
+          "y": 320,
+          "w": 350,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 282,
+          "y": 670,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 320,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 340,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 145,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 210,
+          "y": 375,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 180,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 90,
+          "width": 140,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 670,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-4-01",
+    "floor": 4,
+    "number": 1,
+    "rooms": 2,
+    "pricePerM2": 10150000,
+    "status": "reserved",
+    "plan": {
+      "width": 960,
+      "length": 690,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 550,
+          "y": 0,
+          "w": 410,
+          "l": 400
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 0,
+          "y": 400,
+          "w": 550,
+          "l": 290
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 550,
+          "y": 400,
+          "w": 410,
+          "l": 290
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 260,
+          "l": 400
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 260,
+          "y": 0,
+          "w": 290,
+          "l": 400
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 307,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 423,
+          "y": 400,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 152,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 523,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 260,
+          "y": 232,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 960,
+          "y": 110,
+          "width": 180,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 175,
+          "y": 690,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 690,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-4-02",
+    "floor": 4,
+    "number": 2,
+    "rooms": 1,
+    "pricePerM2": 11400000,
+    "status": "sold",
+    "plan": {
+      "width": 750,
+      "length": 590,
+      "height": 270,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 260,
+          "w": 420,
+          "l": 330
+        },
+        {
+          "id": "r2",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 420,
+          "l": 260
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 420,
+          "y": 0,
+          "w": 330,
+          "l": 350
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 420,
+          "y": 350,
+          "w": 330,
+          "l": 240
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 596,
+          "y": 590,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 350,
+          "width": 80,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 428,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 70,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 115,
+          "y": 590,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 150,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 750,
+          "y": 95,
+          "width": 160,
+          "dir": "v"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-4-03",
+    "floor": 4,
+    "number": 3,
+    "rooms": 3,
+    "pricePerM2": 9850000,
+    "status": "free",
+    "plan": {
+      "width": 1090,
+      "length": 810,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 660,
+          "y": 390,
+          "w": 430,
+          "l": 420
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 660,
+          "y": 0,
+          "w": 430,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "l": 420
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 360,
+          "y": 0,
+          "w": 300,
+          "l": 420
+        },
+        {
+          "id": "r5",
+          "type": "bathroom",
+          "x": 0,
+          "y": 420,
+          "w": 270,
+          "l": 390
+        },
+        {
+          "id": "r6",
+          "type": "bedroom",
+          "x": 270,
+          "y": 420,
+          "w": 390,
+          "l": 390
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 483,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 511,
+          "y": 420,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 360,
+          "y": 82,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 153,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 693,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 270,
+          "y": 510,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 810,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 1090,
+          "y": 505,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 0,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 115,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 375,
+          "y": 810,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-4-04",
+    "floor": 4,
+    "number": 4,
+    "rooms": 3,
+    "pricePerM2": 12300000,
+    "status": "sold",
+    "plan": {
+      "width": 1140,
+      "length": 820,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 380,
+          "w": 480,
+          "l": 440
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 740,
+          "y": 350,
+          "w": 400,
+          "l": 470
+        },
+        {
+          "id": "r3",
+          "type": "bedroom",
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "l": 380
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 480,
+          "y": 350,
+          "w": 260,
+          "l": 470
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 480,
+          "y": 0,
+          "w": 300,
+          "l": 350
+        },
+        {
+          "id": "r6",
+          "type": "kitchen",
+          "x": 780,
+          "y": 0,
+          "w": 360,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 574,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 480,
+          "y": 43,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 780,
+          "y": 220,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 325,
+          "y": 380,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 985,
+          "y": 350,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 579,
+          "y": 350,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 820,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 500,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 1140,
+          "y": 485,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 880,
+          "y": 0,
+          "width": 160,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-4-05",
+    "floor": 4,
+    "number": 5,
+    "rooms": 1,
+    "pricePerM2": 9250000,
+    "status": "free",
+    "plan": {
+      "width": 780,
+      "length": 620,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 250,
+          "w": 400,
+          "l": 370
+        },
+        {
+          "id": "r2",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 400,
+          "l": 250
+        },
+        {
+          "id": "r3",
+          "type": "hall",
+          "x": 400,
+          "y": 0,
+          "w": 380,
+          "l": 370
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 400,
+          "y": 370,
+          "w": 380,
+          "l": 250
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 496,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 117,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 270,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 605,
+          "y": 370,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 620,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 170,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-4-06",
+    "floor": 4,
+    "number": 6,
+    "rooms": 2,
+    "pricePerM2": 11600000,
+    "status": "free",
+    "plan": {
+      "width": 950,
+      "length": 670,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 0,
+          "w": 560,
+          "l": 320
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 560,
+          "y": 280,
+          "w": 390,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 560,
+          "y": 0,
+          "w": 390,
+          "l": 280
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 320,
+          "w": 210,
+          "l": 350
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 210,
+          "y": 320,
+          "w": 350,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 282,
+          "y": 670,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 320,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 340,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 145,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 210,
+          "y": 375,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 180,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 90,
+          "width": 140,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 670,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-5-01",
+    "floor": 5,
+    "number": 1,
+    "rooms": 2,
+    "pricePerM2": 10300000,
+    "status": "free",
+    "plan": {
+      "width": 960,
+      "length": 690,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 550,
+          "y": 0,
+          "w": 410,
+          "l": 400
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 0,
+          "y": 400,
+          "w": 550,
+          "l": 290
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 550,
+          "y": 400,
+          "w": 410,
+          "l": 290
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 260,
+          "l": 400
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 260,
+          "y": 0,
+          "w": 290,
+          "l": 400
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 307,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 423,
+          "y": 400,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 152,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 523,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 260,
+          "y": 232,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 960,
+          "y": 110,
+          "width": 180,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 175,
+          "y": 690,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 690,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-5-02",
+    "floor": 5,
+    "number": 2,
+    "rooms": 1,
+    "pricePerM2": 11550000,
+    "status": "reserved",
+    "plan": {
+      "width": 750,
+      "length": 590,
+      "height": 270,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 260,
+          "w": 420,
+          "l": 330
+        },
+        {
+          "id": "r2",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 420,
+          "l": 260
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 420,
+          "y": 0,
+          "w": 330,
+          "l": 350
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 420,
+          "y": 350,
+          "w": 330,
+          "l": 240
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 596,
+          "y": 590,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 350,
+          "width": 80,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 428,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 70,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 115,
+          "y": 590,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 150,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 750,
+          "y": 95,
+          "width": 160,
+          "dir": "v"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-5-03",
+    "floor": 5,
+    "number": 3,
+    "rooms": 3,
+    "pricePerM2": 10000000,
+    "status": "reserved",
+    "plan": {
+      "width": 1090,
+      "length": 810,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 660,
+          "y": 390,
+          "w": 430,
+          "l": 420
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 660,
+          "y": 0,
+          "w": 430,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "l": 420
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 360,
+          "y": 0,
+          "w": 300,
+          "l": 420
+        },
+        {
+          "id": "r5",
+          "type": "bathroom",
+          "x": 0,
+          "y": 420,
+          "w": 270,
+          "l": 390
+        },
+        {
+          "id": "r6",
+          "type": "bedroom",
+          "x": 270,
+          "y": 420,
+          "w": 390,
+          "l": 390
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 483,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 511,
+          "y": 420,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 360,
+          "y": 82,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 153,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 693,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 270,
+          "y": 510,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 810,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 1090,
+          "y": 505,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 0,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 115,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 375,
+          "y": 810,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-5-04",
+    "floor": 5,
+    "number": 4,
+    "rooms": 3,
+    "pricePerM2": 12450000,
+    "status": "free",
+    "plan": {
+      "width": 1140,
+      "length": 820,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 380,
+          "w": 480,
+          "l": 440
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 740,
+          "y": 350,
+          "w": 400,
+          "l": 470
+        },
+        {
+          "id": "r3",
+          "type": "bedroom",
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "l": 380
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 480,
+          "y": 350,
+          "w": 260,
+          "l": 470
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 480,
+          "y": 0,
+          "w": 300,
+          "l": 350
+        },
+        {
+          "id": "r6",
+          "type": "kitchen",
+          "x": 780,
+          "y": 0,
+          "w": 360,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 574,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 480,
+          "y": 43,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 780,
+          "y": 220,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 325,
+          "y": 380,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 985,
+          "y": 350,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 579,
+          "y": 350,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 820,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 500,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 1140,
+          "y": 485,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 880,
+          "y": 0,
+          "width": 160,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-5-05",
+    "floor": 5,
+    "number": 5,
+    "rooms": 1,
+    "pricePerM2": 9400000,
+    "status": "sold",
+    "plan": {
+      "width": 780,
+      "length": 620,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 250,
+          "w": 400,
+          "l": 370
+        },
+        {
+          "id": "r2",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 400,
+          "l": 250
+        },
+        {
+          "id": "r3",
+          "type": "hall",
+          "x": 400,
+          "y": 0,
+          "w": 380,
+          "l": 370
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 400,
+          "y": 370,
+          "w": 380,
+          "l": 250
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 496,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 117,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 270,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 605,
+          "y": 370,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 620,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 170,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-5-06",
+    "floor": 5,
+    "number": 6,
+    "rooms": 2,
+    "pricePerM2": 11750000,
+    "status": "reserved",
+    "plan": {
+      "width": 950,
+      "length": 670,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 0,
+          "w": 560,
+          "l": 320
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 560,
+          "y": 280,
+          "w": 390,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 560,
+          "y": 0,
+          "w": 390,
+          "l": 280
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 320,
+          "w": 210,
+          "l": 350
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 210,
+          "y": 320,
+          "w": 350,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 282,
+          "y": 670,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 320,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 340,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 145,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 210,
+          "y": 375,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 180,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 90,
+          "width": 140,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 670,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-6-01",
+    "floor": 6,
+    "number": 1,
+    "rooms": 2,
+    "pricePerM2": 10450000,
+    "status": "reserved",
+    "plan": {
+      "width": 960,
+      "length": 690,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 550,
+          "y": 0,
+          "w": 410,
+          "l": 400
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 0,
+          "y": 400,
+          "w": 550,
+          "l": 290
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 550,
+          "y": 400,
+          "w": 410,
+          "l": 290
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 260,
+          "l": 400
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 260,
+          "y": 0,
+          "w": 290,
+          "l": 400
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 307,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 423,
+          "y": 400,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 152,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 523,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 260,
+          "y": 232,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 960,
+          "y": 110,
+          "width": 180,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 175,
+          "y": 690,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 690,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-6-02",
+    "floor": 6,
+    "number": 2,
+    "rooms": 1,
+    "pricePerM2": 11700000,
+    "status": "free",
+    "plan": {
+      "width": 750,
+      "length": 590,
+      "height": 270,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 260,
+          "w": 420,
+          "l": 330
+        },
+        {
+          "id": "r2",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 420,
+          "l": 260
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 420,
+          "y": 0,
+          "w": 330,
+          "l": 350
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 420,
+          "y": 350,
+          "w": 330,
+          "l": 240
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 596,
+          "y": 590,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 350,
+          "width": 80,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 428,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 70,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 115,
+          "y": 590,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 150,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 750,
+          "y": 95,
+          "width": 160,
+          "dir": "v"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-6-03",
+    "floor": 6,
+    "number": 3,
+    "rooms": 3,
+    "pricePerM2": 10150000,
+    "status": "free",
+    "plan": {
+      "width": 1090,
+      "length": 810,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 660,
+          "y": 390,
+          "w": 430,
+          "l": 420
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 660,
+          "y": 0,
+          "w": 430,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "l": 420
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 360,
+          "y": 0,
+          "w": 300,
+          "l": 420
+        },
+        {
+          "id": "r5",
+          "type": "bathroom",
+          "x": 0,
+          "y": 420,
+          "w": 270,
+          "l": 390
+        },
+        {
+          "id": "r6",
+          "type": "bedroom",
+          "x": 270,
+          "y": 420,
+          "w": 390,
+          "l": 390
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 483,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 511,
+          "y": 420,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 360,
+          "y": 82,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 153,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 693,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 270,
+          "y": 510,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 810,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 1090,
+          "y": 505,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 0,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 115,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 375,
+          "y": 810,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-6-04",
+    "floor": 6,
+    "number": 4,
+    "rooms": 3,
+    "pricePerM2": 12600000,
+    "status": "sold",
+    "plan": {
+      "width": 1140,
+      "length": 820,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 380,
+          "w": 480,
+          "l": 440
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 740,
+          "y": 350,
+          "w": 400,
+          "l": 470
+        },
+        {
+          "id": "r3",
+          "type": "bedroom",
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "l": 380
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 480,
+          "y": 350,
+          "w": 260,
+          "l": 470
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 480,
+          "y": 0,
+          "w": 300,
+          "l": 350
+        },
+        {
+          "id": "r6",
+          "type": "kitchen",
+          "x": 780,
+          "y": 0,
+          "w": 360,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 574,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 480,
+          "y": 43,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 780,
+          "y": 220,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 325,
+          "y": 380,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 985,
+          "y": 350,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 579,
+          "y": 350,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 820,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 500,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 1140,
+          "y": 485,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 880,
+          "y": 0,
+          "width": 160,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-6-05",
+    "floor": 6,
+    "number": 5,
+    "rooms": 1,
+    "pricePerM2": 9550000,
+    "status": "free",
+    "plan": {
+      "width": 780,
+      "length": 620,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 250,
+          "w": 400,
+          "l": 370
+        },
+        {
+          "id": "r2",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 400,
+          "l": 250
+        },
+        {
+          "id": "r3",
+          "type": "hall",
+          "x": 400,
+          "y": 0,
+          "w": 380,
+          "l": 370
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 400,
+          "y": 370,
+          "w": 380,
+          "l": 250
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 496,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 117,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 270,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 605,
+          "y": 370,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 620,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 170,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-6-06",
+    "floor": 6,
+    "number": 6,
+    "rooms": 2,
+    "pricePerM2": 11900000,
+    "status": "sold",
+    "plan": {
+      "width": 950,
+      "length": 670,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 0,
+          "w": 560,
+          "l": 320
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 560,
+          "y": 280,
+          "w": 390,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 560,
+          "y": 0,
+          "w": 390,
+          "l": 280
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 320,
+          "w": 210,
+          "l": 350
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 210,
+          "y": 320,
+          "w": 350,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 282,
+          "y": 670,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 320,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 340,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 145,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 210,
+          "y": 375,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 180,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 90,
+          "width": 140,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 670,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-7-01",
+    "floor": 7,
+    "number": 1,
+    "rooms": 2,
+    "pricePerM2": 10600000,
+    "status": "sold",
+    "plan": {
+      "width": 960,
+      "length": 690,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 550,
+          "y": 0,
+          "w": 410,
+          "l": 400
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 0,
+          "y": 400,
+          "w": 550,
+          "l": 290
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 550,
+          "y": 400,
+          "w": 410,
+          "l": 290
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 260,
+          "l": 400
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 260,
+          "y": 0,
+          "w": 290,
+          "l": 400
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 307,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 423,
+          "y": 400,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 152,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 523,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 260,
+          "y": 232,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 960,
+          "y": 110,
+          "width": 180,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 175,
+          "y": 690,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 690,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-7-02",
+    "floor": 7,
+    "number": 2,
+    "rooms": 1,
+    "pricePerM2": 11850000,
+    "status": "free",
+    "plan": {
+      "width": 750,
+      "length": 590,
+      "height": 270,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 260,
+          "w": 420,
+          "l": 330
+        },
+        {
+          "id": "r2",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 420,
+          "l": 260
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 420,
+          "y": 0,
+          "w": 330,
+          "l": 350
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 420,
+          "y": 350,
+          "w": 330,
+          "l": 240
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 596,
+          "y": 590,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 350,
+          "width": 80,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 428,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 70,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 115,
+          "y": 590,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 150,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 750,
+          "y": 95,
+          "width": 160,
+          "dir": "v"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-7-03",
+    "floor": 7,
+    "number": 3,
+    "rooms": 3,
+    "pricePerM2": 10300000,
+    "status": "free",
+    "plan": {
+      "width": 1090,
+      "length": 810,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 660,
+          "y": 390,
+          "w": 430,
+          "l": 420
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 660,
+          "y": 0,
+          "w": 430,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "l": 420
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 360,
+          "y": 0,
+          "w": 300,
+          "l": 420
+        },
+        {
+          "id": "r5",
+          "type": "bathroom",
+          "x": 0,
+          "y": 420,
+          "w": 270,
+          "l": 390
+        },
+        {
+          "id": "r6",
+          "type": "bedroom",
+          "x": 270,
+          "y": 420,
+          "w": 390,
+          "l": 390
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 483,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 511,
+          "y": 420,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 360,
+          "y": 82,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 153,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 693,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 270,
+          "y": 510,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 810,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 1090,
+          "y": 505,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 0,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 115,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 375,
+          "y": 810,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-7-04",
+    "floor": 7,
+    "number": 4,
+    "rooms": 3,
+    "pricePerM2": 12750000,
+    "status": "free",
+    "plan": {
+      "width": 1140,
+      "length": 820,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 380,
+          "w": 480,
+          "l": 440
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 740,
+          "y": 350,
+          "w": 400,
+          "l": 470
+        },
+        {
+          "id": "r3",
+          "type": "bedroom",
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "l": 380
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 480,
+          "y": 350,
+          "w": 260,
+          "l": 470
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 480,
+          "y": 0,
+          "w": 300,
+          "l": 350
+        },
+        {
+          "id": "r6",
+          "type": "kitchen",
+          "x": 780,
+          "y": 0,
+          "w": 360,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 574,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 480,
+          "y": 43,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 780,
+          "y": 220,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 325,
+          "y": 380,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 985,
+          "y": 350,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 579,
+          "y": 350,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 820,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 500,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 1140,
+          "y": 485,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 880,
+          "y": 0,
+          "width": 160,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-7-05",
+    "floor": 7,
+    "number": 5,
+    "rooms": 1,
+    "pricePerM2": 9700000,
+    "status": "sold",
+    "plan": {
+      "width": 780,
+      "length": 620,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 250,
+          "w": 400,
+          "l": 370
+        },
+        {
+          "id": "r2",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 400,
+          "l": 250
+        },
+        {
+          "id": "r3",
+          "type": "hall",
+          "x": 400,
+          "y": 0,
+          "w": 380,
+          "l": 370
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 400,
+          "y": 370,
+          "w": 380,
+          "l": 250
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 496,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 117,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 270,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 605,
+          "y": 370,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 620,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 170,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-7-06",
+    "floor": 7,
+    "number": 6,
+    "rooms": 2,
+    "pricePerM2": 12050000,
+    "status": "reserved",
+    "plan": {
+      "width": 950,
+      "length": 670,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 0,
+          "w": 560,
+          "l": 320
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 560,
+          "y": 280,
+          "w": 390,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 560,
+          "y": 0,
+          "w": 390,
+          "l": 280
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 320,
+          "w": 210,
+          "l": 350
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 210,
+          "y": 320,
+          "w": 350,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 282,
+          "y": 670,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 320,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 340,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 145,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 210,
+          "y": 375,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 180,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 90,
+          "width": 140,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 670,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-8-01",
+    "floor": 8,
+    "number": 1,
+    "rooms": 2,
+    "pricePerM2": 10750000,
+    "status": "sold",
+    "plan": {
+      "width": 960,
+      "length": 690,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 550,
+          "y": 0,
+          "w": 410,
+          "l": 400
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 0,
+          "y": 400,
+          "w": 550,
+          "l": 290
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 550,
+          "y": 400,
+          "w": 410,
+          "l": 290
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 260,
+          "l": 400
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 260,
+          "y": 0,
+          "w": 290,
+          "l": 400
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 307,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 423,
+          "y": 400,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 152,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 523,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 260,
+          "y": 232,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 960,
+          "y": 110,
+          "width": 180,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 175,
+          "y": 690,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 690,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-8-02",
+    "floor": 8,
+    "number": 2,
+    "rooms": 1,
+    "pricePerM2": 12000000,
+    "status": "reserved",
+    "plan": {
+      "width": 750,
+      "length": 590,
+      "height": 270,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 260,
+          "w": 420,
+          "l": 330
+        },
+        {
+          "id": "r2",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 420,
+          "l": 260
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 420,
+          "y": 0,
+          "w": 330,
+          "l": 350
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 420,
+          "y": 350,
+          "w": 330,
+          "l": 240
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 596,
+          "y": 590,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 350,
+          "width": 80,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 428,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 70,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 115,
+          "y": 590,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 150,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 750,
+          "y": 95,
+          "width": 160,
+          "dir": "v"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-8-03",
+    "floor": 8,
+    "number": 3,
+    "rooms": 3,
+    "pricePerM2": 10450000,
+    "status": "free",
+    "plan": {
+      "width": 1090,
+      "length": 810,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 660,
+          "y": 390,
+          "w": 430,
+          "l": 420
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 660,
+          "y": 0,
+          "w": 430,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "l": 420
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 360,
+          "y": 0,
+          "w": 300,
+          "l": 420
+        },
+        {
+          "id": "r5",
+          "type": "bathroom",
+          "x": 0,
+          "y": 420,
+          "w": 270,
+          "l": 390
+        },
+        {
+          "id": "r6",
+          "type": "bedroom",
+          "x": 270,
+          "y": 420,
+          "w": 390,
+          "l": 390
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 483,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 511,
+          "y": 420,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 360,
+          "y": 82,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 153,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 693,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 270,
+          "y": 510,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 810,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 1090,
+          "y": 505,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 0,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 115,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 375,
+          "y": 810,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-8-04",
+    "floor": 8,
+    "number": 4,
+    "rooms": 3,
+    "pricePerM2": 12900000,
+    "status": "free",
+    "plan": {
+      "width": 1140,
+      "length": 820,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 380,
+          "w": 480,
+          "l": 440
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 740,
+          "y": 350,
+          "w": 400,
+          "l": 470
+        },
+        {
+          "id": "r3",
+          "type": "bedroom",
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "l": 380
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 480,
+          "y": 350,
+          "w": 260,
+          "l": 470
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 480,
+          "y": 0,
+          "w": 300,
+          "l": 350
+        },
+        {
+          "id": "r6",
+          "type": "kitchen",
+          "x": 780,
+          "y": 0,
+          "w": 360,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 574,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 480,
+          "y": 43,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 780,
+          "y": 220,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 325,
+          "y": 380,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 985,
+          "y": 350,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 579,
+          "y": 350,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 820,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 500,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 1140,
+          "y": 485,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 880,
+          "y": 0,
+          "width": 160,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-8-05",
+    "floor": 8,
+    "number": 5,
+    "rooms": 1,
+    "pricePerM2": 9850000,
+    "status": "free",
+    "plan": {
+      "width": 780,
+      "length": 620,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 250,
+          "w": 400,
+          "l": 370
+        },
+        {
+          "id": "r2",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 400,
+          "l": 250
+        },
+        {
+          "id": "r3",
+          "type": "hall",
+          "x": 400,
+          "y": 0,
+          "w": 380,
+          "l": 370
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 400,
+          "y": 370,
+          "w": 380,
+          "l": 250
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 496,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 117,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 270,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 605,
+          "y": 370,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 620,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 170,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-8-06",
+    "floor": 8,
+    "number": 6,
+    "rooms": 2,
+    "pricePerM2": 12200000,
+    "status": "reserved",
+    "plan": {
+      "width": 950,
+      "length": 670,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 0,
+          "w": 560,
+          "l": 320
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 560,
+          "y": 280,
+          "w": 390,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 560,
+          "y": 0,
+          "w": 390,
+          "l": 280
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 320,
+          "w": 210,
+          "l": 350
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 210,
+          "y": 320,
+          "w": 350,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 282,
+          "y": 670,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 320,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 340,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 145,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 210,
+          "y": 375,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 180,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 90,
+          "width": 140,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 670,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-9-01",
+    "floor": 9,
+    "number": 1,
+    "rooms": 2,
+    "pricePerM2": 10900000,
+    "status": "reserved",
+    "plan": {
+      "width": 960,
+      "length": 690,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 550,
+          "y": 0,
+          "w": 410,
+          "l": 400
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 0,
+          "y": 400,
+          "w": 550,
+          "l": 290
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 550,
+          "y": 400,
+          "w": 410,
+          "l": 290
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 260,
+          "l": 400
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 260,
+          "y": 0,
+          "w": 290,
+          "l": 400
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 307,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 423,
+          "y": 400,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 152,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 550,
+          "y": 523,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 260,
+          "y": 232,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 960,
+          "y": 110,
+          "width": 180,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 175,
+          "y": 690,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 690,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-9-02",
+    "floor": 9,
+    "number": 2,
+    "rooms": 1,
+    "pricePerM2": 12150000,
+    "status": "free",
+    "plan": {
+      "width": 750,
+      "length": 590,
+      "height": 270,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 260,
+          "w": 420,
+          "l": 330
+        },
+        {
+          "id": "r2",
+          "type": "bathroom",
+          "x": 0,
+          "y": 0,
+          "w": 420,
+          "l": 260
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 420,
+          "y": 0,
+          "w": 330,
+          "l": 350
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 420,
+          "y": 350,
+          "w": 330,
+          "l": 240
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 596,
+          "y": 590,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 350,
+          "width": 80,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 428,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 420,
+          "y": 70,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 115,
+          "y": 590,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 150,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 750,
+          "y": 95,
+          "width": 160,
+          "dir": "v"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-9-03",
+    "floor": 9,
+    "number": 3,
+    "rooms": 3,
+    "pricePerM2": 10600000,
+    "status": "reserved",
+    "plan": {
+      "width": 1090,
+      "length": 810,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 660,
+          "y": 390,
+          "w": 430,
+          "l": 420
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 660,
+          "y": 0,
+          "w": 430,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "l": 420
+        },
+        {
+          "id": "r4",
+          "type": "hall",
+          "x": 360,
+          "y": 0,
+          "w": 300,
+          "l": 420
+        },
+        {
+          "id": "r5",
+          "type": "bathroom",
+          "x": 0,
+          "y": 420,
+          "w": 270,
+          "l": 390
+        },
+        {
+          "id": "r6",
+          "type": "bedroom",
+          "x": 270,
+          "y": 420,
+          "w": 390,
+          "l": 390
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 483,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 511,
+          "y": 420,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 360,
+          "y": 82,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 153,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 660,
+          "y": 693,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 270,
+          "y": 510,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 810,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 1090,
+          "y": 505,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 780,
+          "y": 0,
+          "width": 190,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 115,
+          "width": 190,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 375,
+          "y": 810,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-9-04",
+    "floor": 9,
+    "number": 4,
+    "rooms": 3,
+    "pricePerM2": 13050000,
+    "status": "sold",
+    "plan": {
+      "width": 1140,
+      "length": 820,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 380,
+          "w": 480,
+          "l": 440
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 740,
+          "y": 350,
+          "w": 400,
+          "l": 470
+        },
+        {
+          "id": "r3",
+          "type": "bedroom",
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "l": 380
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 480,
+          "y": 350,
+          "w": 260,
+          "l": 470
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 480,
+          "y": 0,
+          "w": 300,
+          "l": 350
+        },
+        {
+          "id": "r6",
+          "type": "kitchen",
+          "x": 780,
+          "y": 0,
+          "w": 360,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 574,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 480,
+          "y": 43,
+          "width": 90,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 780,
+          "y": 220,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 325,
+          "y": 380,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 985,
+          "y": 350,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 579,
+          "y": 350,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 820,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 500,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 1140,
+          "y": 485,
+          "width": 200,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 140,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 880,
+          "y": 0,
+          "width": 160,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-9-05",
+    "floor": 9,
+    "number": 5,
+    "rooms": 1,
+    "pricePerM2": 10000000,
+    "status": "free",
+    "plan": {
+      "width": 780,
+      "length": 620,
+      "height": 300,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 250,
+          "w": 400,
+          "l": 370
+        },
+        {
+          "id": "r2",
+          "type": "kitchen",
+          "x": 0,
+          "y": 0,
+          "w": 400,
+          "l": 250
+        },
+        {
+          "id": "r3",
+          "type": "hall",
+          "x": 400,
+          "y": 0,
+          "w": 380,
+          "l": 370
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 400,
+          "y": 370,
+          "w": 380,
+          "l": 250
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 496,
+          "y": 0,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 117,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 270,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 605,
+          "y": 370,
+          "width": 70,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 620,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 350,
+          "width": 170,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 110,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  },
+  {
+    "id": "A-9-06",
+    "floor": 9,
+    "number": 6,
+    "rooms": 2,
+    "pricePerM2": 12350000,
+    "status": "free",
+    "plan": {
+      "width": 950,
+      "length": 670,
+      "height": 280,
+      "rooms": [
+        {
+          "id": "r1",
+          "type": "living",
+          "x": 0,
+          "y": 0,
+          "w": 560,
+          "l": 320
+        },
+        {
+          "id": "r2",
+          "type": "bedroom",
+          "x": 560,
+          "y": 280,
+          "w": 390,
+          "l": 390
+        },
+        {
+          "id": "r3",
+          "type": "kitchen",
+          "x": 560,
+          "y": 0,
+          "w": 390,
+          "l": 280
+        },
+        {
+          "id": "r4",
+          "type": "bathroom",
+          "x": 0,
+          "y": 320,
+          "w": 210,
+          "l": 350
+        },
+        {
+          "id": "r5",
+          "type": "hall",
+          "x": 210,
+          "y": 320,
+          "w": 350,
+          "l": 350
+        }
+      ],
+      "openings": [
+        {
+          "type": "entrance",
+          "x": 282,
+          "y": 670,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 400,
+          "y": 320,
+          "width": 90,
+          "dir": "h"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 340,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 560,
+          "y": 145,
+          "width": 80,
+          "dir": "v"
+        },
+        {
+          "type": "door",
+          "x": 210,
+          "y": 375,
+          "width": 70,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 180,
+          "y": 0,
+          "width": 200,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 0,
+          "y": 90,
+          "width": 140,
+          "dir": "v"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 670,
+          "width": 180,
+          "dir": "h"
+        },
+        {
+          "type": "window",
+          "x": 665,
+          "y": 0,
+          "width": 180,
+          "dir": "h"
+        }
+      ]
+    }
+  }
+]
