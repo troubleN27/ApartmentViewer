@@ -183,14 +183,13 @@ export function createViewer({ container, plan, finish, labelOf, onPlayer, onMod
   const center = new THREE.Vector3(W / 2, 0, L / 2);
 
   const camera = new THREE.PerspectiveCamera(45, 1, 0.05, 200);
-  camera.position.set(center.x + span * 0.35, span * 1.15, center.z + span * 0.95);
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.copy(center);
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
   controls.minDistance = 2;
-  controls.maxDistance = span * 3;
+  controls.maxDistance = span * 6;
   controls.maxPolarAngle = Math.PI / 2 - 0.06;
   controls.update();
 
@@ -315,6 +314,10 @@ export function createViewer({ container, plan, finish, labelOf, onPlayer, onMod
   setFinish(finish);
   refreshLabels();
   resize();
+  // На узком экране отодвигаем камеру, чтобы квартира помещалась целиком.
+  const fit = Math.max(1, 1.25 / camera.aspect);
+  camera.position.set(center.x + span * 0.35 * fit, span * 1.15 * fit, center.z + span * 0.95 * fit);
+  controls.update();
   const observer = new ResizeObserver(resize);
   observer.observe(container);
   window.addEventListener('resize', resize);

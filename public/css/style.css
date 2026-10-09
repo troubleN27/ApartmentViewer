@@ -516,6 +516,8 @@ svg { width: 20px; height: 20px; flex: none; }
   .cell-area { font-size: 20px; }
   .cell-price { font-size: 10.5px; }
   .cell-fav { opacity: .55; top: 2px; right: 2px; }
+  .plan-stage { height: clamp(280px, 82vw, 520px); min-height: 0; }
+  .hud-top-right { top: 68px; left: 16px; justify-content: flex-start; }
   .seg button span { display: none; }
   .hud-top-left .hud-info { display: none; }
   .minimap { width: 132px; height: 108px; }

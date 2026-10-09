@@ -23,7 +23,7 @@ const dict = {
 
     'chess.eyebrow': 'Шахматка',
     'chess.title': 'Выберите квартиру',
-    'chess.hint': 'Цвет ячейки показывает статус. Нажмите на квартиру, чтобы открыть планировку.',
+    'chess.hint': 'Цвет ячейки показывает статус, цены указаны в сумах. Нажмите на квартиру, чтобы открыть планировку.',
     'chess.floor': 'этаж',
     'chess.loading': 'Загружаем квартиры…',
     'chess.error': 'Не удалось загрузить квартиры. Обновите страницу.',
@@ -154,7 +154,7 @@ const dict = {
 
     'chess.eyebrow': 'Shaxmatka',
     'chess.title': 'Xonadonni tanlang',
-    'chess.hint': "Katak rangi holatni bildiradi. Rejani ochish uchun xonadonni bosing.",
+    'chess.hint': "Katak rangi holatni bildiradi, narxlar so'mda. Rejani ochish uchun xonadonni bosing.",
     'chess.floor': 'qavat',
     'chess.loading': 'Xonadonlar yuklanmoqda…',
     'chess.error': "Xonadonlarni yuklab bo'lmadi. Sahifani yangilang.",
