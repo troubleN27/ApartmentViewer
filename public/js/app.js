@@ -31,6 +31,13 @@ function showView(view) {
   $('view-plan').hidden = view !== 'plan';
   storage.set('lastView', view);
   window.scrollTo(0, 0);
+  updateTitle();
+}
+
+// Заголовок вкладки: открытая квартира или название ЖК.
+function updateTitle() {
+  const apt = state.view === 'plan' && state.current;
+  document.title = apt ? `${aptTitle(apt)} — ${t('brand')}` : t('meta.title');
 }
 
 function goHome(toChess) {
@@ -153,6 +160,7 @@ function renderApartment() {
   state.furniture = state.planOk ? sanitizeFurniture(state.current.plan, storage.get('furniture', {})[state.current.id]) : [];
   editor.refresh();
   renderCard();
+  updateTitle();
 }
 
 function renderCard() {
