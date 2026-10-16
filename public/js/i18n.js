@@ -4,6 +4,7 @@ import * as storage from './storage.js';
 const dict = {
   ru: {
     'meta.title': 'Новый дом — квартиры бизнес-класса',
+    'meta.description': 'Квартиры бизнес-класса в ЖК «Новый дом»: шахматка с ценами, планировки с площадями комнат и 3D-прогулка по квартире.',
     brand: 'Новый дом',
     'nav.apartments': 'Квартиры',
     'lang.label': 'Язык',
@@ -190,6 +191,7 @@ const dict = {
 
   uz: {
     'meta.title': 'Yangi uy — biznes-klass xonadonlar',
+    'meta.description': "«Yangi uy» TJMdagi biznes-klass xonadonlar: narxlar bilan shaxmatka, xonalar maydoni ko'rsatilgan rejalar va xonadon bo'ylab 3D sayr.",
     brand: 'Yangi uy',
     'nav.apartments': 'Xonadonlar',
     'lang.label': 'Til',
@@ -415,6 +417,9 @@ export function applyI18n(root = document) {
   });
   root.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
     el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  root.querySelectorAll('[data-i18n-content]').forEach((el) => {
+    el.content = t(el.dataset.i18nContent);
   });
   root.querySelectorAll('[data-i18n-alt]').forEach((el) => {
     el.alt = t(el.dataset.i18nAlt);
